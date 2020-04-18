@@ -37,15 +37,23 @@ public class MenuBar extends JMenuBar implements ActionListener {
         fileTree.add(fileNew);
 
         fileOpen = new MenuOption("Open");
+        fileOpen.addActionListener(this);
+        fileOpen.setActionCommand("Open");
         fileTree.add(fileOpen);
 
         fileSave = new MenuOption("Save");
+        fileSave.addActionListener(this);
+        fileSave.setActionCommand("Save");
         fileTree.add(fileSave);
 
-        fileSaveAs = new MenuOption("Save as");
+        fileSaveAs = new MenuOption("SaveAs");
+        fileSaveAs.addActionListener(this);
+        fileSaveAs.setActionCommand("SaveAs");
         fileTree.add(fileSaveAs);
 
         fileExit = new MenuOption("Exit");
+        fileExit.addActionListener(this);
+        fileExit.setActionCommand("Exit");
         fileTree.add(fileExit);
     }
 
@@ -67,7 +75,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         switch (command) {
-            case "New": System.out.println("test"); fileFunctions.newFile(); break;
+            case "New": fileFunctions.newFile(); break;
             case "Open": fileFunctions.openFile(); break;
             case "Save": fileFunctions.saveFile(); break;
             case "SaveAs": fileFunctions.saveFileAs(); break;

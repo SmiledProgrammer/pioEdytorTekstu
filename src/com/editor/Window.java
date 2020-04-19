@@ -1,13 +1,17 @@
 package com.editor;
 
 import javax.swing.*;
+import javax.swing.event.UndoableEditEvent;
+import javax.swing.event.UndoableEditListener;
 import javax.swing.plaf.ColorUIResource;
+import javax.swing.undo.UndoManager;
 
 public class Window extends JFrame {
 
     JTextArea textArea;
     JScrollPane scrollPane;
     MenuBar menuBar;
+    UndoManager undoManager = new UndoManager();
 
     public Window() {
         setupWindow();
@@ -32,6 +36,12 @@ public class Window extends JFrame {
 
     public void setupTextArea() {
         textArea = new JTextArea();
+        textArea.getDocument().addUndoableEditListener(new UndoableEditListener() {
+            public void undoableEditHappened(UndoableEditEvent e) {
+                undoManager.addEdit(e.getEdit());
+            }
+        });
+
         scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         add(scrollPane);

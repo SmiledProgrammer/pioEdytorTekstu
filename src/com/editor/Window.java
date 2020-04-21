@@ -5,6 +5,7 @@ import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import javax.swing.plaf.ColorUIResource;
 import javax.swing.undo.UndoManager;
+import java.awt.event.KeyListener;
 
 public class Window extends JFrame {
 
@@ -36,6 +37,7 @@ public class Window extends JFrame {
 
     public void setupTextArea() {
         textArea = new JTextArea();
+        textArea.addKeyListener(new InputHandler());
         textArea.getDocument().addUndoableEditListener(new UndoableEditListener() {
             public void undoableEditHappened(UndoableEditEvent e) {
                 undoManager.addEdit(e.getEdit());
@@ -51,4 +53,5 @@ public class Window extends JFrame {
         menuBar = new MenuBar(this);
         setJMenuBar(menuBar);
     }
+    
 }

@@ -7,12 +7,12 @@ import java.io.FileWriter;
 
 public class FileFunctions {
 
-    Window window;
-    String fName;
-    String fAddress;
+    static Window window;
+    static String fName;
+    static String fAddress;
 
     public FileFunctions(Window window) {
-        this.window = window;
+        FileFunctions.window = window;
     }
 
     public void newFile() {
@@ -49,7 +49,7 @@ public class FileFunctions {
         }
     }
 
-    public void saveFile() {
+    public static void saveFile() {
         if (fName == null)
             saveFileAs();
 
@@ -68,7 +68,7 @@ public class FileFunctions {
         }
     }
 
-    public void saveFileAs() {
+    public static void saveFileAs() {
         FileDialog fd = new FileDialog(window, "Save", FileDialog.SAVE);
         fd.setVisible(true);
 

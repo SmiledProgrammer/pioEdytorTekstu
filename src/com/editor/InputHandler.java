@@ -43,6 +43,8 @@ public class InputHandler implements KeyListener {
     @Override
     public synchronized void keyReleased(KeyEvent e) {
         pressedKeys.remove(e.getKeyCode());
+        write[0] = false;
+        write[1] = false;
     }
 
     @Override

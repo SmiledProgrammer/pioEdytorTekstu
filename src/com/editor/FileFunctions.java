@@ -7,16 +7,16 @@ import java.io.FileWriter;
 
 public class FileFunctions {
 
-    static Window window;
+    static NotepadWindow window;
     static String fName;
     static String fAddress;
 
-    public FileFunctions(Window window) {
+    public FileFunctions(NotepadWindow window) {
         FileFunctions.window = window;
     }
 
     public static void newFile() {
-        window.textArea.setText("");
+        NotepadWindow.textArea.setText("");
         window.setTitle("Notepad+++ - New");
         fName = null;
         fAddress = null;
@@ -35,10 +35,10 @@ public class FileFunctions {
 
         try {
             BufferedReader buff = new BufferedReader(new FileReader(fAddress + fName));
-            window.textArea.setText("");
+            NotepadWindow.textArea.setText("");
             String line = null;
             while((line = buff.readLine()) != null) {
-                window.textArea.append(line + "\n");
+                NotepadWindow.textArea.append(line + "\n");
             }
             buff.close();
 
@@ -56,7 +56,7 @@ public class FileFunctions {
         else {
             try {
                 FileWriter fw = new FileWriter(fAddress + fName);
-                fw.write(window.textArea.getText());
+                fw.write(NotepadWindow.textArea.getText());
                 fw.close();
 
                 System.out.println("Saved: "+ fAddress + fName);
@@ -80,7 +80,7 @@ public class FileFunctions {
 
         try {
             FileWriter fw = new FileWriter(fAddress + fName);
-            fw.write(window.textArea.getText());
+            fw.write(NotepadWindow.textArea.getText());
             fw.close();
 
             System.out.println("Saved: "+ fAddress + fName);

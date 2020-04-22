@@ -7,7 +7,7 @@ public class EditFunctions {
     static Window window;
 
     public EditFunctions(Window window) {
-        EditFunctions.window = window;
+        this.window = window;
     }
 
     public static void undo() {

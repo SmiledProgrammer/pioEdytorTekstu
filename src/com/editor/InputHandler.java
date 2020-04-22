@@ -11,23 +11,23 @@ public class InputHandler implements KeyListener {
     private final Set<Integer> pressedKeys = new HashSet<>();
     private Boolean saveAs;
     private final Boolean[] save = new Boolean[2];
-    private final Boolean[] newF = new Boolean[2]; 
+    private final Boolean[] newF = new Boolean[2];
     private final Boolean[] openF = new Boolean[2];
     private final Boolean[] undo = new Boolean[2];
     private Boolean redo;
 
     public InputHandler() {
-        this.save[0] = false; 
+        this.save[0] = false;
         this.save[1] = false;
         this.saveAs = false;
-        
-        this.newF[0] = false; 
+
+        this.newF[0] = false;
         this.newF[1] = false;
-        
-        this.openF[0] = false; 
+
+        this.openF[0] = false;
         this.openF[1] = false;
-        
-        this.undo[0] = false; 
+
+        this.undo[0] = false;
         this.undo[1] = false;
         this.redo = false;
     }
@@ -39,13 +39,13 @@ public class InputHandler implements KeyListener {
         if (!pressedKeys.isEmpty()) {
             for (Iterator<Integer> it = pressedKeys.iterator(); it.hasNext();) {
                 switch (it.next()) {
-                    case KeyEvent.VK_CONTROL:                        
+                    case KeyEvent.VK_CONTROL:
                         save[0] = true;
                         newF[0] = true;
                         openF[0] = true;
                         undo[0] = true;
                         break;
-                    case KeyEvent.VK_S:                        
+                    case KeyEvent.VK_S:
                         save[1] = true;
                         break;
                     case KeyEvent.VK_N:
@@ -69,9 +69,9 @@ public class InputHandler implements KeyListener {
                 if (!saveAs) {
                     FileFunctions.saveFile();
                 } else {
-                    FileFunctions.saveFileAs();                    
+                    FileFunctions.saveFileAs();
                 }
-                System.out.println("Zapis przez skrot");  
+                System.out.println("Zapis przez skrot");
                 save[0] = false;
                 save[1] = false;
                 saveAs = false;
@@ -80,10 +80,10 @@ public class InputHandler implements KeyListener {
                 if (!redo) {
                     EditFunctions.undo();
                 } else {
-                    EditFunctions.redo();                    
+                    EditFunctions.redo();
                 }
                 undo[0] = false;
-                undo[1] = false; 
+                undo[1] = false;
                 redo = false;
             }
             if (newF[0] && newF[1]) {
@@ -96,7 +96,7 @@ public class InputHandler implements KeyListener {
                 openF[0] = false;
                 openF[1] = false;
             }
-            
+
             if (pressedKeys.contains(KeyEvent.VK_CONTROL) && pressedKeys.contains(KeyEvent.VK_S)) {
                 pressedKeys.remove(KeyEvent.VK_CONTROL);
                 pressedKeys.remove(KeyEvent.VK_S);
@@ -108,7 +108,7 @@ public class InputHandler implements KeyListener {
                 pressedKeys.remove(KeyEvent.VK_CONTROL);
                 pressedKeys.remove(KeyEvent.VK_O);
             }
-                
+
         }
     }
 
@@ -119,14 +119,14 @@ public class InputHandler implements KeyListener {
         save[0] = false;
         save[1] = false;
         saveAs = false;
-        
+
         undo[0] = false;
         undo[1] = false;
         redo = false;
-        
+
         newF[0] = false;
         newF[1] = false;
-        
+
         openF[0] = false;
         openF[1] = false;
     }

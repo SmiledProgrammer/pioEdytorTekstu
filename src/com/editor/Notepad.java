@@ -2,10 +2,11 @@ package com.editor;
 
 public class Notepad {
 
-    static Window window;
+    static NotepadWindow notepadWindow;
     //static InputHandler inputHandler; //do zrobienia
-    
+
     public static void main(String [] args) {
-        window = new Window();
+        notepadWindow = new NotepadWindow();
+        notepadWindow.CreateNotepad();
     }
 }

@@ -4,13 +4,13 @@ import javax.swing.undo.CannotRedoException;
 import javax.swing.undo.CannotUndoException;
 
 public class EditFunctions {
-    Window window;
+    static Window window;
 
     public EditFunctions(Window window) {
-        this.window = window;
+        EditFunctions.window = window;
     }
 
-    public void undo() {
+    public static void undo() {
         try {
             window.undoManager.undo();
         }catch (CannotUndoException e) {
@@ -18,7 +18,7 @@ public class EditFunctions {
         }
     }
 
-    public void redo() {
+    public static void redo() {
         try {
             window.undoManager.redo();
         }catch (CannotRedoException e) {

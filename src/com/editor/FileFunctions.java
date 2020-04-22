@@ -7,23 +7,23 @@ import java.io.FileWriter;
 
 public class FileFunctions {
 
-    static NotepadWindow window;
+    static Window window;
     static String fName;
     static String fAddress;
 
-    public FileFunctions(NotepadWindow window) {
+    public FileFunctions(Window window) {
         FileFunctions.window = window;
     }
 
-    public void newFile() {
-        NotepadWindow.textArea.setText("");
+    public static void newFile() {
+        window.textArea.setText("");
         window.setTitle("Notepad+++ - New");
         fName = null;
         fAddress = null;
         System.out.println("New File");
     }
 
-    public void openFile() {
+    public static void openFile() {
         FileDialog fd = new FileDialog(window, "Open", FileDialog.LOAD);
         fd.setVisible(true);
 
@@ -35,10 +35,10 @@ public class FileFunctions {
 
         try {
             BufferedReader buff = new BufferedReader(new FileReader(fAddress + fName));
-            NotepadWindow.textArea.setText("");
+            window.textArea.setText("");
             String line = null;
             while((line = buff.readLine()) != null) {
-                NotepadWindow.textArea.append(line + "\n");
+                window.textArea.append(line + "\n");
             }
             buff.close();
 
@@ -56,7 +56,7 @@ public class FileFunctions {
         else {
             try {
                 FileWriter fw = new FileWriter(fAddress + fName);
-                fw.write(NotepadWindow.textArea.getText());
+                fw.write(window.textArea.getText());
                 fw.close();
 
                 System.out.println("Saved: "+ fAddress + fName);
@@ -80,7 +80,7 @@ public class FileFunctions {
 
         try {
             FileWriter fw = new FileWriter(fAddress + fName);
-            fw.write(NotepadWindow.textArea.getText());
+            fw.write(window.textArea.getText());
             fw.close();
 
             System.out.println("Saved: "+ fAddress + fName);
@@ -89,7 +89,7 @@ public class FileFunctions {
         }
     }
 
-    public void exitFile() {
+    public static void exitFile() {
         System.exit(0);
     }
 }

@@ -20,6 +20,7 @@ public class Window extends JFrame {
         setupTextArea();
         setupMenuBar();
         setVisible(true);
+        
     }
 
     public void setupWindow() {

@@ -89,13 +89,13 @@ public class MenuBar extends JMenuBar implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
         switch (command) {
-            case "New": fileFunctions.newFile(); break;
-            case "Open": fileFunctions.openFile(); break;
-            case "Save": fileFunctions.saveFile(); break;
-            case "SaveAs": fileFunctions.saveFileAs(); break;
-            case "Exit": fileFunctions.exitFile(); break;
-            case "Undo": editFunctions.undo(); break;
-            case "Redo": editFunctions.redo(); break;
+            case "New": FileFunctions.newFile(); break;
+            case "Open": FileFunctions.openFile(); break;
+            case "Save": FileFunctions.saveFile(); break;
+            case "SaveAs": FileFunctions.saveFileAs(); break;
+            case "Exit": FileFunctions.exitFile(); break;
+            case "Undo": EditFunctions.undo(); break;
+            case "Redo": EditFunctions.redo(); break;
         }
     }
 }

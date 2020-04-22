@@ -15,7 +15,7 @@ public class FileFunctions {
         FileFunctions.window = window;
     }
 
-    public void newFile() {
+    public static void newFile() {
         window.textArea.setText("");
         window.setTitle("Notepad+++ - New");
         fName = null;
@@ -23,7 +23,7 @@ public class FileFunctions {
         System.out.println("New File");
     }
 
-    public void openFile() {
+    public static void openFile() {
         FileDialog fd = new FileDialog(window, "Open", FileDialog.LOAD);
         fd.setVisible(true);
 
@@ -89,7 +89,7 @@ public class FileFunctions {
         }
     }
 
-    public void exitFile() {
+    public static void exitFile() {
         System.exit(0);
     }
 }

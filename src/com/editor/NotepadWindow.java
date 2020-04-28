@@ -3,12 +3,14 @@ package com.editor;
 import javax.swing.*;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
+import java.awt.*;
 
 public class NotepadWindow extends Window {
 
     static JTextArea textArea;
     MenuBar menuBar;
     JScrollPane scrollPane;
+    static Font currentFont;
 
     public void CreateNotepad(){
         MakeNotepadWindow();
@@ -32,6 +34,7 @@ public class NotepadWindow extends Window {
                 undoManager.addEdit(e.getEdit());
             }
         });
+        textArea.setFont(currentFont);
 
         scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
@@ -43,7 +46,7 @@ public class NotepadWindow extends Window {
         setJMenuBar(menuBar);
     }
 
-    static public void changeFont() {
-        textArea.setFont(FontWindow.font);
+    static public void setFont() {
+        textArea.setFont(currentFont);
     }
 }

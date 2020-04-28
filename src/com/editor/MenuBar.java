@@ -10,17 +10,21 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
     NotepadWindow notepadWindow;
     FontWindow fontWindow;
+    ColorWindow colorWindow;
     static Color color = new Color(153, 204, 255);
     MenuOptionTree fileTree; //new, open, save, save as, exit
     MenuOptionTree editTree; //undo, redo
     MenuOptionTree formatTree; //font (window pops out)
+    MenuOptionTree viewTree; //color (window pops out)
     MenuOption fileNew, fileOpen, fileSave, fileSaveAs, fileExit;
     MenuOption editUndo, editRedo;
     MenuOption formatFont;
+    MenuOption viewColor;
 
     FileFunctions fileFunctions;
     EditFunctions editFunctions;
     FormatFunctions formatFunctions;
+    ViewFunctions viewFunctions;
 
     public MenuBar(NotepadWindow notepadWindow) {
         this.notepadWindow = notepadWindow;
@@ -29,6 +33,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
         setupFileTree();
         setupEditTree();
         setupFormatTree();
+        setupViewTree();
         setupFunctions();
     }
 
@@ -88,10 +93,21 @@ public class MenuBar extends JMenuBar implements ActionListener {
         formatTree.add(formatFont);
     }
 
+    public void setupViewTree() {
+        viewTree = new MenuOptionTree("View");
+        add(viewTree);
+
+        viewColor = new MenuOption("Color");
+        viewColor.addActionListener(this);
+        viewColor.setActionCommand("Color");
+        viewTree.add(viewColor);
+    }
+
     public void setupFunctions() {
         fileFunctions = new FileFunctions(notepadWindow);
         editFunctions = new EditFunctions(notepadWindow);
         formatFunctions = new FormatFunctions(fontWindow);
+        viewFunctions = new ViewFunctions(colorWindow);
     }
 
     @Override
@@ -106,6 +122,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
             case "Undo": editFunctions.undo(); break;
             case "Redo": editFunctions.redo(); break;
             case "Font": formatFunctions.font(); break;
+            case "Color": viewFunctions.color(); break;
         }
     }
 }

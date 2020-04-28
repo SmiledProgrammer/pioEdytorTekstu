@@ -7,66 +7,93 @@ import java.awt.event.ActionListener;
 
 public class FontWindow extends Window implements ActionListener {
 
-    JTextField jSizeField;
+    JTextField jSizeTextField;
     JLabel jSizeLabel, jTypeLabel;
-    JButton set;
-    int value;
-    static Font font;
-    JComboBox fontTypes;
-
+    JButton jSetButton;
+    JCheckBox jBoldCheckBox, jItalicCheckBox;
+    JComboBox jTypeComboBox;
 
     public void CreateFont(){
         MakeFontWindow();
         AddFontSizePanel();
         AddFontTypePanel();
         AddSetButton();
-        this.add(jSizeField);
-        this.add(jSizeLabel);
-        this.add(set);
-        this.add(fontTypes);
-        this.add(jTypeLabel);
+        AddCheckboxPanel();
         this.setLayout(null);
         this.setVisible(true);
     }
 
     public void MakeFontWindow() {
         setTitle("Font Options");
-        setSize(400, 400);
+        setSize(300, 225);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
     }
 
     public void AddSetButton(){
-        set = new JButton("Set");
-        set.setBounds(50,330,100,20);
-        set.addActionListener(this);
+        jSetButton = new JButton("Set");
+        jSetButton.setBounds(100,135,100,20);
+        jSetButton.addActionListener(this);
+        this.add(jSetButton);
     }
 
     public void AddFontSizePanel() {
-        jSizeField = new JTextField();
-        jSizeField.setBounds(50,50,30,20);
+        jSizeTextField = new JTextField();
+        jSizeTextField.setBounds(25,50,30,20);
+        this.add(jSizeTextField);
 
         jSizeLabel = new JLabel("Font Size");
-        jSizeLabel.setBounds(50,25,150,20);
+        jSizeLabel.setBounds(25,25,150,20);
+        this.add(jSizeLabel);
     }
 
     public void AddFontTypePanel() {
-        String fonts[]={"Arial","Comic Sans MS"};
-        fontTypes = new JComboBox(fonts);
-        fontTypes.setBounds(50,100,100,20);
+        String fonts[]={"Arial", "Comic Sans MS"};
+        jTypeComboBox = new JComboBox(fonts);
+        jTypeComboBox.setBounds(25,100,100,20);
+        this.add(jTypeComboBox);
 
         jTypeLabel = new JLabel("Font Type");
-        jTypeLabel.setBounds(50,75,150,20);
+        jTypeLabel.setBounds(25,75,150,20);
+        this.add(jTypeLabel);
     }
+    public void AddCheckboxPanel() {
+        jBoldCheckBox = new JCheckBox("Bold");
+        jBoldCheckBox.setBounds(200,50,150,20);
+        this.add(jBoldCheckBox);
+
+        jItalicCheckBox = new JCheckBox("Italic");
+        jItalicCheckBox.setBounds(200,100,150,20);
+        this.add(jItalicCheckBox);
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        String valueStr = jSizeField.getText();
-        value = Integer.parseInt(valueStr);
+        int value, style;
 
-        String fontName = (String) fontTypes.getSelectedItem();
+        Color initialColor = Color.WHITE;
+        Color color = JColorChooser.showDialog(this, "Select a color", initialColor);
+        NotepadWindow.textArea.setForeground(color);
 
-        int style = Font.PLAIN;
-        font = new Font(fontName, style, value);
-        NotepadWindow.changeFont();
+        String fontName = (String) jTypeComboBox.getSelectedItem();
+
+        if(jBoldCheckBox.isSelected() && jItalicCheckBox.isSelected())
+            style = Font.BOLD + Font.ITALIC;
+        else if(jBoldCheckBox.isSelected())
+            style = Font.BOLD;
+        else if (jItalicCheckBox.isSelected())
+            style = Font.ITALIC;
+        else
+            style = Font.PLAIN;
+
+        String valueStr = jSizeTextField.getText();
+        if(!valueStr.isEmpty())
+            value = Integer.parseInt(valueStr);
+        else
+            value = NotepadWindow.textArea.getFont().getSize();
+
+        NotepadWindow.currentFont = new Font(fontName, style, value);
+        NotepadWindow.setFont();
+
     }
 }

@@ -1,9 +1,12 @@
 package com.editor;
 
+import javax.swing.*;
 import java.awt.FileDialog;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileWriter;
+
+import static javax.swing.JOptionPane.*;
 
 public class FileFunctions {
 
@@ -14,8 +17,30 @@ public class FileFunctions {
     public FileFunctions(NotepadWindow window) {
         FileFunctions.window = window;
     }
-
+    private static int ifSave() {
+        InputHandler.setAllFalse();
+        InputHandler.cleanSet();
+        Object[] options = {"Yes",
+                "No",
+                "Cancel"};
+        int n = JOptionPane.showOptionDialog(window,
+                "Do you want to save changes? "
+                        + "All unsaved changes will be lost!",
+                "Save changes",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[2]);
+        return n;
+    }
     public static void newFile() {
+        int ifLeaveSave = ifSave();
+        if(ifLeaveSave == YES_OPTION) {
+            saveFile();
+        } else if(ifLeaveSave == CANCEL_OPTION || ifLeaveSave == CLOSED_OPTION) {
+            return;
+        }
         NotepadWindow.textArea.setText("");
         window.setTitle("Notepad+++ - New");
         fName = null;
@@ -24,6 +49,12 @@ public class FileFunctions {
     }
 
     public static void openFile() {
+        int ifLeaveSave = ifSave();
+        if(ifLeaveSave == YES_OPTION) {
+            saveFile();
+        } else if(ifLeaveSave == CANCEL_OPTION || ifLeaveSave == CLOSED_OPTION) {
+            return;
+        }
         FileDialog fd = new FileDialog(window, "Open", FileDialog.LOAD);
         fd.setVisible(true);
 
@@ -90,6 +121,12 @@ public class FileFunctions {
     }
 
     public static void exitFile() {
+        int ifLeaveSave = ifSave();
+        if(ifLeaveSave == YES_OPTION) {
+            saveFile();
+        } else if(ifLeaveSave == CANCEL_OPTION || ifLeaveSave == CLOSED_OPTION) {
+            return;
+        }
         System.exit(0);
     }
 }

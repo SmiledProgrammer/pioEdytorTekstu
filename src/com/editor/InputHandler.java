@@ -1,5 +1,6 @@
 package com.editor;
 
+
 import java.util.Set;
 import java.util.HashSet;
 import java.awt.event.KeyEvent;
@@ -8,13 +9,13 @@ import java.util.Iterator;
 
 public class InputHandler implements KeyListener {
 
-    private final Set<Integer> pressedKeys = new HashSet<>();
-    private Boolean saveAs;
-    private final Boolean[] save = new Boolean[2];
-    private final Boolean[] newF = new Boolean[2];
-    private final Boolean[] openF = new Boolean[2];
-    private final Boolean[] undo = new Boolean[2];
-    private Boolean redo;
+    private static final Set<Integer> pressedKeys = new HashSet<>();
+    private static Boolean saveAs;
+    private static final Boolean[] save = new Boolean[2];
+    private static final Boolean[] newF = new Boolean[2];
+    private static final Boolean[] openF = new Boolean[2];
+    private static final Boolean[] undo = new Boolean[2];
+    private static Boolean redo;
 
     public InputHandler() {
         this.save[0] = false;
@@ -31,7 +32,24 @@ public class InputHandler implements KeyListener {
         this.undo[1] = false;
         this.redo = false;
     }
+    static void cleanSet() {
+        pressedKeys.clear();
+    }
+    static void setAllFalse() {
+        save[0] = false;
+        save[1] = false;
+        saveAs = false;
 
+        undo[0] = false;
+        undo[1] = false;
+        redo = false;
+
+        newF[0] = false;
+        newF[1] = false;
+
+        openF[0] = false;
+        openF[1] = false;
+    }
     @Override
     public synchronized void keyPressed(KeyEvent e) {
         pressedKeys.add(e.getKeyCode());
@@ -116,19 +134,7 @@ public class InputHandler implements KeyListener {
     public synchronized void keyReleased(KeyEvent e) {
         pressedKeys.remove(e.getKeyCode());
         //System.out.println(pressedKeys);
-        save[0] = false;
-        save[1] = false;
-        saveAs = false;
-
-        undo[0] = false;
-        undo[1] = false;
-        redo = false;
-
-        newF[0] = false;
-        newF[1] = false;
-
-        openF[0] = false;
-        openF[1] = false;
+        setAllFalse();
     }
 
     @Override

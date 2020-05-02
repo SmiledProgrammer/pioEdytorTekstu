@@ -5,7 +5,6 @@ import java.util.Set;
 import java.util.HashSet;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.Iterator;
 
 public class InputHandler implements KeyListener {
 
@@ -18,19 +17,19 @@ public class InputHandler implements KeyListener {
     private static Boolean redo;
 
     public InputHandler() {
-        this.save[0] = false;
-        this.save[1] = false;
-        this.saveAs = false;
+        InputHandler.save[0] = false;
+        InputHandler.save[1] = false;
+        InputHandler.saveAs = false;
 
-        this.newF[0] = false;
-        this.newF[1] = false;
+        InputHandler.newF[0] = false;
+        InputHandler.newF[1] = false;
 
-        this.openF[0] = false;
-        this.openF[1] = false;
+        InputHandler.openF[0] = false;
+        InputHandler.openF[1] = false;
 
-        this.undo[0] = false;
-        this.undo[1] = false;
-        this.redo = false;
+        InputHandler.undo[0] = false;
+        InputHandler.undo[1] = false;
+        InputHandler.redo = false;
     }
     static void cleanSet() {
         pressedKeys.clear();
@@ -55,8 +54,8 @@ public class InputHandler implements KeyListener {
         pressedKeys.add(e.getKeyCode());
 
         if (!pressedKeys.isEmpty()) {
-            for (Iterator<Integer> it = pressedKeys.iterator(); it.hasNext();) {
-                switch (it.next()) {
+            for (Integer pressedKey : pressedKeys) {
+                switch (pressedKey) {
                     case KeyEvent.VK_CONTROL:
                         save[0] = true;
                         newF[0] = true;

@@ -23,7 +23,7 @@ public class FileFunctions {
         Object[] options = {"Yes",
                 "No",
                 "Cancel"};
-        int n = JOptionPane.showOptionDialog(window,
+        return JOptionPane.showOptionDialog(window,
                 "Do you want to save changes? "
                         + "All unsaved changes will be lost!",
                 "Save changes",
@@ -32,7 +32,6 @@ public class FileFunctions {
                 null,
                 options,
                 options[2]);
-        return n;
     }
     public static void newFile() {
         int ifLeaveSave = ifSave();

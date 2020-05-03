@@ -52,4 +52,20 @@ public class PatternFinder {
         this.pattern = pattern;
         lastPosition = 0;
     }
+
+    public void updateTextString(String text) {
+        this.text = text;
+    }
+
+    //remove l8r
+    public static void main(String[] args) {
+        PatternFinder pf = new PatternFinder();
+        pf.setStrings("ala ma kota,\na kot ma ale,\nala go kocha,\na kot jej wcale", "kot");
+        int found = 0;
+        found = pf.findNext();
+        while (found >= 0) {
+            System.out.println(found);
+            found = pf.findNext();
+        }
+    }
 }

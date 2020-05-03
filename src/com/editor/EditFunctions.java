@@ -6,10 +6,12 @@ import javax.swing.undo.CannotUndoException;
 public class EditFunctions {
     static Window window;
     static FindWindow findWindow;
+    static ReplaceWindow replaceWindow;
 
     public EditFunctions(Window window) {
         this.window = window;
         findWindow = new FindWindow();
+        replaceWindow = new ReplaceWindow();
     }
 
     public static void undo() {
@@ -30,5 +32,9 @@ public class EditFunctions {
 
     public static void find() {
         findWindow.setVisible(true);
+    }
+
+    public void replace() {
+        replaceWindow.setVisible(true);
     }
 }

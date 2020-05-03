@@ -17,7 +17,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
     MenuOptionTree formatTree; //font (window pops out)
     MenuOptionTree viewTree; //color (window pops out)
     MenuOption fileNew, fileOpen, fileSave, fileSaveAs, fileExit;
-    MenuOption editUndo, editRedo, editFind;
+    MenuOption editUndo, editRedo, editFind, editReplace;
     MenuOption formatFont;
     MenuOption viewColor;
 
@@ -86,6 +86,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
         editFind.addActionListener(this);
         editFind.setActionCommand("Find");
         editTree.add(editFind);
+
+        editReplace = new MenuOption("Find and Replace");
+        editReplace.addActionListener(this);
+        editReplace.setActionCommand("Replace");
+        editTree.add(editReplace);
     }
 
     public void setupFormatTree() {
@@ -127,6 +132,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
             case "Undo": editFunctions.undo(); break;
             case "Redo": editFunctions.redo(); break;
             case "Find": editFunctions.find(); break;
+            case "Replace": editFunctions.replace(); break;
             case "Font": formatFunctions.font(); break;
             case "Color": viewFunctions.color(); break;
         }

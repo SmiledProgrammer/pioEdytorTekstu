@@ -6,12 +6,6 @@ public class PatternFinder {
     private String pattern;
     private int lastPosition;
 
-    public PatternFinder(String text, String pattern) {
-        this.text = text;
-        this.pattern = pattern;
-        lastPosition = 0;
-    }
-
     private int[] createPrefixSuffixTable() {
         int[] repetition = new int[pattern.length() + 1];
         repetition[0] = 0;
@@ -53,18 +47,9 @@ public class PatternFinder {
         }
     }
 
-    public void reset() {
+    public void setStrings(String text, String pattern) {
+        this.text = text;
+        this.pattern = pattern;
         lastPosition = 0;
-    }
-
-    //remove l8r
-    public static void main(String[] args) {
-        PatternFinder pf = new PatternFinder("dsgwadsgK dsgwadsgz abc dsgwadsgz", "dsgwadsgz");
-        int found = 0;
-        found = pf.findNext();
-        while (found >= 0) {
-            System.out.println(found);
-            found = pf.findNext();
-        }
     }
 }

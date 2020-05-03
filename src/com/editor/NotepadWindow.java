@@ -5,19 +5,21 @@ import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import java.awt.*;
 
-public class NotepadWindow extends Window {
+public class NotepadWindow extends Window implements Runnable {
 
     static JTextArea textArea;
     MenuBar menuBar;
     JScrollPane scrollPane;
     static Font currentFont;
 
-    public void CreateNotepad(){
+    @Override
+    public void run() {
         MakeNotepadWindow();
         setupDefaultComponentOptions();
         setupTextArea();
         setupMenuBar();
         setVisible(true);
+        System.out.println(SwingUtilities.isEventDispatchThread());
     }
 
     public void MakeNotepadWindow() {
@@ -49,4 +51,5 @@ public class NotepadWindow extends Window {
     static public void setFont() {
         textArea.setFont(currentFont);
     }
+
 }

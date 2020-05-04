@@ -73,7 +73,7 @@ public class FontWindow extends Window implements ActionListener {
 
         Color initialColor = Color.WHITE;
         Color color = JColorChooser.showDialog(this, "Select a color", initialColor);
-        NotepadWindow.textArea.setForeground(color);
+        NotepadWindow.currentFontColor = color;
 
         String fontName = (String) jTypeComboBox.getSelectedItem();
 

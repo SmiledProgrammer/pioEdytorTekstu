@@ -1,6 +1,7 @@
 package com.editor;
 
 import javax.swing.*;
+import javax.swing.text.AttributeSet;
 import java.awt.FileDialog;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -68,7 +69,8 @@ public class FileFunctions {
             NotepadWindow.textArea.setText("");
             String line = null;
             while((line = buff.readLine()) != null) {
-                NotepadWindow.textArea.append(line + "\n");
+                //NotepadWindow.textArea.append(line + "\n");
+                NotepadWindow.textArea.getStyledDocument().insertString(0,line, null);
             }
             buff.close();
 

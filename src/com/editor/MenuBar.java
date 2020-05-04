@@ -18,7 +18,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
     MenuOptionTree viewTree; //color (window pops out)
     MenuOption fileNew, fileOpen, fileSave, fileSaveAs, fileExit;
     MenuOption editUndo, editRedo;
-    MenuOption formatFont;
+    MenuOption formatFont, formatLeft, formatCenter, formatRight;
     MenuOption viewColor;
 
     FileFunctions fileFunctions;
@@ -91,6 +91,21 @@ public class MenuBar extends JMenuBar implements ActionListener {
         formatFont.addActionListener(this);
         formatFont.setActionCommand("Font");
         formatTree.add(formatFont);
+
+        formatLeft = new MenuOption("Left");
+        formatLeft.addActionListener(this);
+        formatLeft.setActionCommand("Left");
+        formatTree.add(formatLeft);
+
+        formatCenter = new MenuOption("Center");
+        formatCenter.addActionListener(this);
+        formatCenter.setActionCommand("Center");
+        formatTree.add(formatCenter);
+
+        formatRight = new MenuOption("Right");
+        formatRight.addActionListener(this);
+        formatRight.setActionCommand("Right");
+        formatTree.add(formatRight);
     }
 
     public void setupViewTree() {
@@ -122,6 +137,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
             case "Undo": editFunctions.undo(); break;
             case "Redo": editFunctions.redo(); break;
             case "Font": formatFunctions.font(); break;
+            case "Left": formatFunctions.alignLeft(); break;
+            case "Center": formatFunctions.alignCenter(); break;
+            case "Right": formatFunctions.alignRight(); break;
             case "Color": viewFunctions.color(); break;
         }
     }

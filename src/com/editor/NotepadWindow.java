@@ -31,7 +31,7 @@ public class NotepadWindow extends Window {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-    private SimpleAttributeSet crateStyle(int style)
+    private static SimpleAttributeSet crateStyle(int style)
     {
         SimpleAttributeSet res = new SimpleAttributeSet();
         StyleConstants.setAlignment(res,style);
@@ -77,11 +77,30 @@ public class NotepadWindow extends Window {
             }
         });
         textArea.setFont(currentFont);
-        textArea.setParagraphAttributes(crateStyle(StyleConstants.ALIGN_RIGHT), true);
+
 
         scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         add(scrollPane);
+    }
+    private static void align(int mode)
+    {
+        textArea.setParagraphAttributes(crateStyle(mode), true);
+    }
+
+    public static void alignLeft()
+    {
+        align(StyleConstants.ALIGN_LEFT);
+    }
+
+    public static void alignRight()
+    {
+        align(StyleConstants.ALIGN_RIGHT);
+    }
+
+    public static void alignCenter()
+    {
+        align(StyleConstants.ALIGN_CENTER);
     }
 
     public void setupMenuBar() {

@@ -12,4 +12,19 @@ public class FormatFunctions {
         fontWindow = new FontWindow();
         fontWindow.CreateFont();
     }
+
+    public void alignLeft()
+    {
+        NotepadWindow.alignLeft();
+    }
+
+    public void alignCenter()
+    {
+        NotepadWindow.alignCenter();
+    }
+
+    public  void alignRight()
+    {
+        NotepadWindow.alignRight();
+    }
 }

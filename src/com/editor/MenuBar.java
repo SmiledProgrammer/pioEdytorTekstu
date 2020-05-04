@@ -42,16 +42,19 @@ public class MenuBar extends JMenuBar implements ActionListener {
         add(fileTree);
 
         fileNew = new MenuOption("New");
+        fileNew.setToolTipText("Ctrl+N");
         fileNew.addActionListener(this);
         fileNew.setActionCommand("New");
         fileTree.add(fileNew);
 
         fileOpen = new MenuOption("Open");
+        fileOpen.setToolTipText("Ctrl+O");
         fileOpen.addActionListener(this);
         fileOpen.setActionCommand("Open");
         fileTree.add(fileOpen);
 
         fileSave = new MenuOption("Save");
+        fileSave.setToolTipText("Ctrl+S");
         fileSave.addActionListener(this);
         fileSave.setActionCommand("Save");
         fileTree.add(fileSave);

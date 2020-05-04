@@ -4,6 +4,10 @@ import javax.swing.*;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+
+import static javax.swing.JOptionPane.*;
 
 public class NotepadWindow extends Window implements Runnable {
 
@@ -26,6 +30,19 @@ public class NotepadWindow extends Window implements Runnable {
         setTitle("Notepad+++");
         setSize(800, 600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                int ifSave = FileFunctions.ifSave();
+                if(ifSave == YES_OPTION) {
+                    FileFunctions.saveFile();
+                } else if(ifSave == CANCEL_OPTION || ifSave == CLOSED_OPTION) {
+                    return;
+                }
+                System.exit(0);
+            }
+        });
     }
 
     public void setupTextArea() {
@@ -34,6 +51,7 @@ public class NotepadWindow extends Window implements Runnable {
         textArea.getDocument().addUndoableEditListener(new UndoableEditListener() {
             public void undoableEditHappened(UndoableEditEvent e) {
                 undoManager.addEdit(e.getEdit());
+                FileFunctions.ifEdited = true;
             }
         });
         textArea.setFont(currentFont);

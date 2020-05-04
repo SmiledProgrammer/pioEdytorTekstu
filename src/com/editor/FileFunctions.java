@@ -13,11 +13,14 @@ public class FileFunctions {
     static NotepadWindow window;
     static String fName;
     static String fAddress;
-
+    public static boolean ifEdited;         // Czy plik był edytowany
     public FileFunctions(NotepadWindow window) {
         FileFunctions.window = window;
+        ifEdited = false;
     }
-    private static int ifSave() {
+    static int ifSave() {
+        if(!ifEdited) return NO_OPTION;
+
         InputHandler.setAllFalse();
         InputHandler.cleanSet();
         Object[] options = {"Yes",
@@ -45,6 +48,7 @@ public class FileFunctions {
         fName = null;
         fAddress = null;
         System.out.println("New File");
+        ifEdited = false;
     }
 
     public static void openFile() {
@@ -73,6 +77,7 @@ public class FileFunctions {
             buff.close();
 
             System.out.println("Opened: "+ fAddress + fName);
+            ifEdited = false;
 
         }catch (Exception e) {
             System.out.println("Can't open a file!!");
@@ -90,6 +95,7 @@ public class FileFunctions {
                 fw.close();
 
                 System.out.println("Saved: "+ fAddress + fName);
+                ifEdited = false;
 
             } catch (Exception e) {
                 System.out.println("Can't Save !!!");
@@ -114,6 +120,7 @@ public class FileFunctions {
             fw.close();
 
             System.out.println("Saved: "+ fAddress + fName);
+            ifEdited = false;
         } catch (Exception e) {
             System.out.println("Can't Save !!!");
         }

@@ -20,6 +20,7 @@ public class EditFunctions {
         }catch (CannotUndoException e) {
             System.err.println("No text to undo");
         }
+        FileFunctions.ifEdited = true;
     }
 
     public static void redo() {
@@ -28,6 +29,7 @@ public class EditFunctions {
         }catch (CannotRedoException e) {
             System.err.println("No text to redo");
         }
+        FileFunctions.ifEdited = true;
     }
 
     public static void find() {

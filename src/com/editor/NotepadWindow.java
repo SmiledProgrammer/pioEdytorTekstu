@@ -1,6 +1,9 @@
 package com.editor;
 
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.SwingUtilities;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import java.awt.*;
@@ -8,6 +11,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import static javax.swing.JOptionPane.*;
+import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
 public class NotepadWindow extends Window implements Runnable {
 
@@ -29,7 +33,7 @@ public class NotepadWindow extends Window implements Runnable {
     public void MakeNotepadWindow() {
         setTitle("Notepad+++");
         setSize(800, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         addWindowListener(new WindowAdapter() {
             @Override
@@ -37,10 +41,10 @@ public class NotepadWindow extends Window implements Runnable {
                 int ifSave = FileFunctions.ifSave();
                 if(ifSave == YES_OPTION) {
                     FileFunctions.saveFile();
-                } else if(ifSave == CANCEL_OPTION || ifSave == CLOSED_OPTION) {
-                    return;
+                    System.exit(0);
+                } else if(ifSave == NO_OPTION) {
+                    System.exit(0);
                 }
-                System.exit(0);
             }
         });
     }

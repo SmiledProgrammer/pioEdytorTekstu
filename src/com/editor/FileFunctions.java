@@ -21,7 +21,6 @@ public class FileFunctions {
     static int ifSave() {
         if(!ifEdited) return NO_OPTION;
 
-        InputHandler.setAllFalse();
         InputHandler.cleanSet();
         Object[] options = {"Yes",
                 "No",

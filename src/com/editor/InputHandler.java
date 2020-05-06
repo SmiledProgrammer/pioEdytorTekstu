@@ -1,6 +1,7 @@
 package com.editor;
 
 
+import java.awt.*;
 import java.util.Set;
 import java.util.HashSet;
 import java.awt.event.KeyEvent;
@@ -40,6 +41,18 @@ public class InputHandler implements KeyListener {
                     EditFunctions.redo();
                 }
                 else { EditFunctions.undo(); }
+            }
+
+            if (ifCtrl && pressedKeys.contains(KeyEvent.VK_PLUS)) {
+                Font f = NotepadWindow.textArea.getFont();
+                Font newF = new Font(f.getFontName(), f.getStyle(), f.getSize()+1);
+                NotepadWindow.textArea.setFont(newF);
+            }
+
+            if (ifCtrl && pressedKeys.contains(KeyEvent.VK_MINUS)) {
+                Font f = NotepadWindow.textArea.getFont();
+                Font newF = new Font(f.getFontName(), f.getStyle(), f.getSize()-1);
+                NotepadWindow.textArea.setFont(newF);
             }
         }
 

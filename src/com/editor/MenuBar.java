@@ -1,7 +1,6 @@
 package com.editor;
 
-import javax.swing.JMenuBar;
-import javax.swing.BorderFactory;
+import javax.swing.*;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,6 +18,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
     MenuOption fileNew, fileOpen, fileSave, fileSaveAs, fileExit;
     MenuOption editUndo, editRedo, editFind, editReplace;
     MenuOption formatFont;
+    JCheckBoxMenuItem wordWrap;
     MenuOption viewColor;
 
     FileFunctions fileFunctions;
@@ -104,6 +104,13 @@ public class MenuBar extends JMenuBar implements ActionListener {
         formatFont.addActionListener(this);
         formatFont.setActionCommand("Font");
         formatTree.add(formatFont);
+
+
+        wordWrap = new JCheckBoxMenuItem("Word wrap");
+        wordWrap.addItemListener(e ->
+                formatFunctions.wrap(((AbstractButton)e.getSource()).isSelected()));
+        wordWrap.setActionCommand("Word wrap");
+        formatTree.add(wordWrap);
     }
 
     public void setupViewTree() {
@@ -138,6 +145,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
             case "Replace": editFunctions.replace(); break;
             case "Font": formatFunctions.font(); break;
             case "Color": viewFunctions.color(); break;
+           //case "Wrap": formatFunctions.wrap(e.); break;
         }
     }
 }

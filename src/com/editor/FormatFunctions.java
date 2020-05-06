@@ -1,8 +1,11 @@
 package com.editor;
 
+import javax.swing.*;
+
 public class FormatFunctions {
 
     FontWindow fontWindow;
+    //NotepadWindow window;
 
     public FormatFunctions(FontWindow fontWindow) {
         this.fontWindow = fontWindow;
@@ -11,5 +14,11 @@ public class FormatFunctions {
     public void font() {
         fontWindow = new FontWindow();
         fontWindow.CreateFont();
+    }
+
+    public void wrap(boolean isOn)
+    {
+        NotepadWindow.textArea.setLineWrap(isOn);
+        NotepadWindow.textArea.setWrapStyleWord(isOn);
     }
 }

@@ -35,31 +35,31 @@ public class ColorWindow extends Window implements ActionListener {
         jTextColorButton = new JButton("Text");
         jTextColorButton.setBounds(25,75,200,20);
         jTextColorButton.addActionListener(this);
-        jBackgroundColorButton.setActionCommand("Text");
+        jTextColorButton.setActionCommand("Text");
         this.add(jTextColorButton);
 
-        jMenuBarColorButton = new JButton("Menu Bar");
+        jMenuBarColorButton = new JButton("Menu Bar (WIP)");
         jMenuBarColorButton.setBounds(25,100,200,20);
         jMenuBarColorButton.addActionListener(this);
-        jBackgroundColorButton.setActionCommand("Menu Bar");
+        jMenuBarColorButton.setActionCommand("Menu Bar");
         this.add(jMenuBarColorButton);
 
-        jMenuTreeColorButton = new JButton("Menu Tree");
+        jMenuTreeColorButton = new JButton("Menu Tree (WIP)");
         jMenuTreeColorButton.setBounds(25,125,200,20);
         jMenuTreeColorButton.addActionListener(this);
-        jBackgroundColorButton.setActionCommand("Menu Tree");
+        jMenuTreeColorButton.setActionCommand("Menu Tree");
         this.add(jMenuTreeColorButton);
 
-        jMenuSelectColorButton = new JButton("Menu Selected");
+        jMenuSelectColorButton = new JButton("Menu Selected (WIP)");
         jMenuSelectColorButton.setBounds(25,150,200,20);
         jMenuSelectColorButton.addActionListener(this);
-        jBackgroundColorButton.setActionCommand("Menu Selected");
+        jMenuSelectColorButton.setActionCommand("Menu Selected");
         this.add(jMenuSelectColorButton);
 
-        jMenuHoverButton = new JButton("Menu Hovered");
+        jMenuHoverButton = new JButton("Menu Hovered (WIP)");
         jMenuHoverButton.setBounds(25,175,200,20);
         jMenuHoverButton.addActionListener(this);
-        jBackgroundColorButton.setActionCommand("Menu Hovered");
+        jMenuHoverButton.setActionCommand("Menu Hovered");
         this.add(jMenuHoverButton);
     }
 

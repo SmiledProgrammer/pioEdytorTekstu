@@ -5,7 +5,6 @@ import javax.swing.*;
 public class FormatFunctions {
 
     FontWindow fontWindow;
-    //NotepadWindow window;
 
     public FormatFunctions(FontWindow fontWindow) {
         this.fontWindow = fontWindow;

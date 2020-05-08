@@ -11,7 +11,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import static javax.swing.JOptionPane.*;
-import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
 public class NotepadWindow extends Window implements Runnable {
 
@@ -28,11 +27,18 @@ public class NotepadWindow extends Window implements Runnable {
         setupMenuBar();
         setVisible(true);
         System.out.println(SwingUtilities.isEventDispatchThread());
+
     }
 
     public void MakeNotepadWindow() {
         setTitle("Notepad+++");
         setSize(800, 600);
+        try {
+            Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("image/icon.png"));
+            setIconImage(icon);
+        } catch (Exception e) {
+            System.out.println("Can't find icon image - setting default icon");
+        }
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         addWindowListener(new WindowAdapter() {

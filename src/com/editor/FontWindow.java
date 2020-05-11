@@ -86,7 +86,7 @@ public class FontWindow extends Window implements ActionListener {
         if(!valueStr.isEmpty())
             value = Integer.parseInt(valueStr);
         else
-            value = NotepadWindow.textArea.getFont().getSize();
+            value = NotepadWindow.textPane.getFont().getSize();
 
         NotepadWindow.currentFont = new Font(fontName, style, value);
         NotepadWindow.setFont();

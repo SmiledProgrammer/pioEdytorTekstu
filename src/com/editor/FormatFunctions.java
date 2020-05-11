@@ -17,7 +17,6 @@ public class FormatFunctions {
 
     public void wrap(boolean isOn)
     {
-        NotepadWindow.textArea.setLineWrap(isOn);
-        NotepadWindow.textArea.setWrapStyleWord(isOn);
+        /* zawijanie tekstu nam się troszkę zepsuło przez JTextPane */
     }
 }

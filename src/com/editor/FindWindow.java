@@ -41,22 +41,23 @@ public class FindWindow extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, "Please type in a pattern to find.");
             return;
         }
-        if (NotepadWindow.textArea.getText().equals("")) {
+        if (NotepadWindow.textPane.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "There is no text to search in!");
             return;
         }
         if (!lastPattern.equals(textField.getText())) {
-            pf.setStrings(NotepadWindow.textArea.getText(), textField.getText());
+            pf.setStrings(NotepadWindow.textPane.getText(), textField.getText());
             lastPattern = textField.getText();
         }
         int position = pf.findNext();
         if (position == -1) {
             JOptionPane.showMessageDialog(null, "No more occurrences of the pattern in the text.");
+            pf.setStrings(NotepadWindow.textPane.getText(), textField.getText());
         } else {
             int endPosition = position + textField.getText().length();
-            NotepadWindow.textArea.setCaretPosition(endPosition);
-            NotepadWindow.textArea.setSelectionStart(position);
-            NotepadWindow.textArea.setSelectionEnd(endPosition);
+            NotepadWindow.textPane.setCaretPosition(endPosition);
+            NotepadWindow.textPane.setSelectionStart(position);
+            NotepadWindow.textPane.setSelectionEnd(endPosition);
         }
     }
 }

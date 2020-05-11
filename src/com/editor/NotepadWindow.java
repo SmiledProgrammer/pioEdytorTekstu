@@ -1,9 +1,6 @@
 package com.editor;
 
-import javax.swing.BorderFactory;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import java.awt.*;
@@ -14,7 +11,7 @@ import static javax.swing.JOptionPane.*;
 
 public class NotepadWindow extends Window implements Runnable {
 
-    static JTextArea textArea;
+    static JTextPane textPane;
     MenuBar menuBar;
     JScrollPane scrollPane;
     static Font currentFont;
@@ -56,17 +53,17 @@ public class NotepadWindow extends Window implements Runnable {
     }
 
     public void setupTextArea() {
-        textArea = new JTextArea();
-        textArea.addKeyListener(new InputHandler());
-        textArea.getDocument().addUndoableEditListener(new UndoableEditListener() {
+        textPane = new JTextPane();
+        textPane.addKeyListener(new InputHandler());
+        textPane.getDocument().addUndoableEditListener(new UndoableEditListener() {
             public void undoableEditHappened(UndoableEditEvent e) {
                 undoManager.addEdit(e.getEdit());
                 FileFunctions.ifEdited = true;
             }
         });
-        textArea.setFont(currentFont);
+        textPane.setFont(currentFont);
 
-        scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane = new JScrollPane(textPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         add(scrollPane);
     }
@@ -77,7 +74,7 @@ public class NotepadWindow extends Window implements Runnable {
     }
 
     static public void setFont() {
-        textArea.setFont(currentFont);
+        textPane.setFont(currentFont);
     }
 
 }

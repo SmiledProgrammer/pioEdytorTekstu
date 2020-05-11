@@ -70,39 +70,39 @@ public class ColorWindow extends Window implements ActionListener {
     }
 
     public void changeBackground(){
-        Color initialBackground = NotepadWindow.textArea.getBackground();
+        Color initialBackground = NotepadWindow.textPane.getBackground();
         Color background = JColorChooser.showDialog(this, "Choose", initialBackground);
-        NotepadWindow.textArea.setBackground(background);
+        NotepadWindow.textPane.setBackground(background);
     }
 
     public void changeText(){
-        Color initialText = NotepadWindow.textArea.getForeground();
+        Color initialText = NotepadWindow.textPane.getForeground();
         Color text = JColorChooser.showDialog(this, "Choose", initialText);
-        NotepadWindow.textArea.setForeground(text);
+        NotepadWindow.textPane.setForeground(text);
     }
 
     public void changeMenuBar(){
-        Color initialMenuBar = NotepadWindow.textArea.getForeground();
+        Color initialMenuBar = NotepadWindow.textPane.getForeground();
         Color menuBar = JColorChooser.showDialog(this, "Choose", initialMenuBar);
         MenuOption.barColor = menuBar;
     }
 
     public void changeMenuTree(){
-        Color initialMenuTree = NotepadWindow.textArea.getForeground();
+        Color initialMenuTree = NotepadWindow.textPane.getForeground();
         Color text = JColorChooser.showDialog(this, "Choose", initialMenuTree);
-        NotepadWindow.textArea.setForeground(text);
+        NotepadWindow.textPane.setForeground(text);
     }
 
     public void changeMenuSelected(){
-        Color initialMenuSelected = NotepadWindow.textArea.getForeground();
+        Color initialMenuSelected = NotepadWindow.textPane.getForeground();
         Color text = JColorChooser.showDialog(this, "Choose", initialMenuSelected);
-        NotepadWindow.textArea.setForeground(text);
+        NotepadWindow.textPane.setForeground(text);
     }
 
     public void changeMenuHovered(){
-        Color initialMenuHovered = NotepadWindow.textArea.getForeground();
+        Color initialMenuHovered = NotepadWindow.textPane.getForeground();
         Color text = JColorChooser.showDialog(this, "Choose", initialMenuHovered);
-        NotepadWindow.textArea.setForeground(text);
+        NotepadWindow.textPane.setForeground(text);
     }
 
     @Override

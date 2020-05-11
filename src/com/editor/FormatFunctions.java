@@ -5,7 +5,6 @@ import javax.swing.*;
 public class FormatFunctions {
 
     FontWindow fontWindow;
-    //NotepadWindow window;
 
     public FormatFunctions(FontWindow fontWindow) {
         this.fontWindow = fontWindow;
@@ -18,7 +17,6 @@ public class FormatFunctions {
 
     public void wrap(boolean isOn)
     {
-        NotepadWindow.textArea.setLineWrap(isOn);
-        NotepadWindow.textArea.setWrapStyleWord(isOn);
+        /* zawijanie tekstu nam się troszkę zepsuło przez JTextPane */
     }
 }

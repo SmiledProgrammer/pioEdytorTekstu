@@ -145,7 +145,6 @@ public class MenuBar extends JMenuBar implements ActionListener {
             case "Replace": editFunctions.replace(); break;
             case "Font": formatFunctions.font(); break;
             case "Color": viewFunctions.color(); break;
-           //case "Wrap": formatFunctions.wrap(e.); break;
         }
     }
 }

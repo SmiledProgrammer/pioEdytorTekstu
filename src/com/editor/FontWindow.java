@@ -71,10 +71,6 @@ public class FontWindow extends Window implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         int value, style;
 
-        Color initialColor = Color.WHITE;
-        Color color = JColorChooser.showDialog(this, "Select a color", initialColor);
-        NotepadWindow.textArea.setForeground(color);
-
         String fontName = (String) jTypeComboBox.getSelectedItem();
 
         if(jBoldCheckBox.isSelected() && jItalicCheckBox.isSelected())
@@ -90,7 +86,7 @@ public class FontWindow extends Window implements ActionListener {
         if(!valueStr.isEmpty())
             value = Integer.parseInt(valueStr);
         else
-            value = NotepadWindow.textArea.getFont().getSize();
+            value = NotepadWindow.textPane.getFont().getSize();
 
         NotepadWindow.currentFont = new Font(fontName, style, value);
         NotepadWindow.setFont();

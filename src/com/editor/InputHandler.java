@@ -44,15 +44,15 @@ public class InputHandler implements KeyListener {
             }
 
             if (ifCtrl && pressedKeys.contains(KeyEvent.VK_EQUALS)) {
-                Font f = NotepadWindow.textArea.getFont();
+                Font f = NotepadWindow.textPane.getFont();
                 Font newF = new Font(f.getFontName(), f.getStyle(), f.getSize()+1);
-                NotepadWindow.textArea.setFont(newF);
+                NotepadWindow.textPane.setFont(newF);
             }
 
             if (ifCtrl && pressedKeys.contains(KeyEvent.VK_MINUS)) {
-                Font f = NotepadWindow.textArea.getFont();
+                Font f = NotepadWindow.textPane.getFont();
                 Font newF = new Font(f.getFontName(), f.getStyle(), f.getSize()-1);
-                NotepadWindow.textArea.setFont(newF);
+                NotepadWindow.textPane.setFont(newF);
             }
         }
 

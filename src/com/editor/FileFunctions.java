@@ -1,6 +1,8 @@
 package com.editor;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.StyledDocument;
 import java.awt.FileDialog;
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -14,10 +16,17 @@ public class FileFunctions {
     static String fName;
     static String fAddress;
     public static boolean ifEdited;         // Czy plik był edytowany
+
     public FileFunctions(NotepadWindow window) {
         FileFunctions.window = window;
         ifEdited = false;
     }
+
+    private static void appendString(JTextPane text, String str) throws BadLocationException {
+        StyledDocument doc = (StyledDocument)text.getDocument();
+        doc.insertString(doc.getLength(), str, null);
+    }
+
     static int ifSave() {
         if(!ifEdited) return NO_OPTION;
 
@@ -35,6 +44,7 @@ public class FileFunctions {
                 options,
                 options[2]);
     }
+
     public static void newFile() {
         int ifLeaveSave = ifSave();
         if(ifLeaveSave == YES_OPTION) {
@@ -42,7 +52,7 @@ public class FileFunctions {
         } else if(ifLeaveSave == CANCEL_OPTION || ifLeaveSave == CLOSED_OPTION) {
             return;
         }
-        NotepadWindow.textArea.setText("");
+        NotepadWindow.textPane.setText("");
         window.setTitle("Notepad+++ - New");
         fName = null;
         fAddress = null;
@@ -68,10 +78,10 @@ public class FileFunctions {
 
         try {
             BufferedReader buff = new BufferedReader(new FileReader(fAddress + fName));
-            NotepadWindow.textArea.setText("");
+            NotepadWindow.textPane.setText("");
             String line = null;
             while((line = buff.readLine()) != null) {
-                NotepadWindow.textArea.append(line + "\n");
+                appendString(NotepadWindow.textPane, line + "\n");
             }
             buff.close();
 
@@ -90,7 +100,7 @@ public class FileFunctions {
         else {
             try {
                 FileWriter fw = new FileWriter(fAddress + fName);
-                fw.write(NotepadWindow.textArea.getText());
+                fw.write(NotepadWindow.textPane.getText());
                 fw.close();
 
                 System.out.println("Saved: "+ fAddress + fName);
@@ -115,7 +125,7 @@ public class FileFunctions {
 
         try {
             FileWriter fw = new FileWriter(fAddress + fName);
-            fw.write(NotepadWindow.textArea.getText());
+            fw.write(NotepadWindow.textPane.getText());
             fw.close();
 
             System.out.println("Saved: "+ fAddress + fName);

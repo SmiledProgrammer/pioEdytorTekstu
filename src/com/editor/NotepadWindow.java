@@ -1,9 +1,6 @@
 package com.editor;
 
-import javax.swing.BorderFactory;
-import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
-import javax.swing.SwingUtilities;
+import javax.swing.*;
 import javax.swing.event.UndoableEditEvent;
 import javax.swing.event.UndoableEditListener;
 import java.awt.*;
@@ -11,11 +8,10 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import static javax.swing.JOptionPane.*;
-import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
 public class NotepadWindow extends Window implements Runnable {
 
-    static JTextArea textArea;
+    static JTextPane textPane;
     MenuBar menuBar;
     JScrollPane scrollPane;
     static Font currentFont;
@@ -28,11 +24,18 @@ public class NotepadWindow extends Window implements Runnable {
         setupMenuBar();
         setVisible(true);
         System.out.println(SwingUtilities.isEventDispatchThread());
+
     }
 
     public void MakeNotepadWindow() {
         setTitle("Notepad+++");
         setSize(800, 600);
+        try {
+            Image icon = Toolkit.getDefaultToolkit().getImage(getClass().getResource("image/icon.png"));
+            setIconImage(icon);
+        } catch (Exception e) {
+            System.out.println("Can't find icon image - setting default icon");
+        }
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 
         addWindowListener(new WindowAdapter() {
@@ -50,17 +53,17 @@ public class NotepadWindow extends Window implements Runnable {
     }
 
     public void setupTextArea() {
-        textArea = new JTextArea();
-        textArea.addKeyListener(new InputHandler());
-        textArea.getDocument().addUndoableEditListener(new UndoableEditListener() {
+        textPane = new JTextPane();
+        textPane.addKeyListener(new InputHandler());
+        textPane.getDocument().addUndoableEditListener(new UndoableEditListener() {
             public void undoableEditHappened(UndoableEditEvent e) {
                 undoManager.addEdit(e.getEdit());
                 FileFunctions.ifEdited = true;
             }
         });
-        textArea.setFont(currentFont);
+        textPane.setFont(currentFont);
 
-        scrollPane = new JScrollPane(textArea, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane = new JScrollPane(textPane, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBorder(BorderFactory.createEmptyBorder());
         add(scrollPane);
     }
@@ -71,7 +74,7 @@ public class NotepadWindow extends Window implements Runnable {
     }
 
     static public void setFont() {
-        textArea.setFont(currentFont);
+        textPane.setFont(currentFont);
     }
 
 }

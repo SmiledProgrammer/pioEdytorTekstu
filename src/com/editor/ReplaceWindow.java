@@ -52,18 +52,24 @@ public class ReplaceWindow extends JFrame implements ActionListener {
         lastPattern = "";
     }
 
+    private static void replaceText(JTextPane text, String replacement, int startingIndex, int endingIndex) {
+        text.setSelectionStart(startingIndex);
+        text.setSelectionEnd(endingIndex);
+        text.replaceSelection(replacement);
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
         if (textFieldToFind.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Please type in a string to find.");
             return;
         }
-        if (NotepadWindow.textArea.getText().equals("")) {
+        if (NotepadWindow.textPane.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "There is no text to search in!");
             return;
         }
         if (!lastPattern.equals(textFieldToFind.getText())) {
-            pf.setStrings(NotepadWindow.textArea.getText(), textFieldToFind.getText());
+            pf.setStrings(NotepadWindow.textPane.getText(), textFieldToFind.getText());
             lastPattern = textFieldToFind.getText();
         }
         if (e.getActionCommand().equals("next")) {
@@ -72,17 +78,17 @@ public class ReplaceWindow extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "No more occurrences of the string in the text.");
             } else {
                 int endPosition = position + textFieldToFind.getText().length();
-                NotepadWindow.textArea.setCaretPosition(endPosition);
-                NotepadWindow.textArea.replaceRange(textFieldToReplaceWith.getText(), position, endPosition);
-                pf.updateTextString(NotepadWindow.textArea.getText());
+                NotepadWindow.textPane.setCaretPosition(endPosition);
+                replaceText(NotepadWindow.textPane, textFieldToReplaceWith.getText(), position, endPosition);
+                pf.updateTextString(NotepadWindow.textPane.getText());
             }
         } else if (e.getActionCommand().equals("all")) {
             int position = pf.findNext();
             int elementsReplaced = 0;
             while (position != -1) {
                 int endPosition = position + textFieldToFind.getText().length();
-                NotepadWindow.textArea.replaceRange(textFieldToReplaceWith.getText(), position, endPosition);
-                pf.updateTextString(NotepadWindow.textArea.getText());
+                replaceText(NotepadWindow.textPane, textFieldToReplaceWith.getText(), position, endPosition);
+                pf.updateTextString(NotepadWindow.textPane.getText());
                 elementsReplaced++;
                 position = pf.findNext();
             }

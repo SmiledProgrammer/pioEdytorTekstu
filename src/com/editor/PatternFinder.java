@@ -5,6 +5,7 @@ public class PatternFinder {
     private String text;
     private String pattern;
     private int lastPosition;
+    private int endOfLines = 0;
 
     private int[] createPrefixSuffixTable() {
         int[] repetition = new int[pattern.length() + 1];
@@ -26,6 +27,8 @@ public class PatternFinder {
         int[] psTable = createPrefixSuffixTable();
         int j = 0;
         for (int i = startingIndex; i < text.length(); i++) {
+            if (text.charAt(i) == '\n')
+                endOfLines++;
             if (text.charAt(i) == pattern.charAt(j)) {
                 j++;
                 if (j == pattern.length())
@@ -38,10 +41,11 @@ public class PatternFinder {
     }
 
     public int findNext() {
+        //endOfLines = 0;
         if (lastPosition + pattern.length() < text.length()) {
             int pos = findPattern(lastPosition);
             lastPosition = pos + 1;
-            return pos;
+            return pos - endOfLines;
         } else {
             return -1;
         }
@@ -51,6 +55,7 @@ public class PatternFinder {
         this.text = text;
         this.pattern = pattern;
         lastPosition = 0;
+        endOfLines = 0;
     }
 
     public void updateTextString(String text) {

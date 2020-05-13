@@ -59,6 +59,10 @@ public class NotepadWindow extends Window implements Runnable {
             public void undoableEditHappened(UndoableEditEvent e) {
                 undoManager.addEdit(e.getEdit());
                 FileFunctions.ifEdited = true;
+                if(!EditFunctions.ifCsetUp) {
+                    EditFunctions.setUpC();
+                }
+                EditFunctions.languageC.updateTextColors(); // tutaj jest wywoływana niedziałająca funkcjonalność
             }
         });
         textPane.setFont(currentFont);

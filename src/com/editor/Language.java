@@ -48,7 +48,10 @@ public class Language {
         Style style = pane.addStyle(color.toString(), null);
         StyleConstants.setForeground(style, color);
         try {
+            int test = pos + length;
+            System.out.println(pos+" "+test+" "+word);
             doc.remove(pos, length);
+            System.out.println(pos+" "+test+" "+word);
             doc.insertString(pos, word, style);
         } catch (BadLocationException ex) {}
     }
@@ -74,17 +77,29 @@ public class Language {
         return beginningIndex;
     }
 
-    protected void checkKeywords(int startingIndex) {
-        Iterator it = keywords.entrySet().iterator();
+    protected void checkKeywords(int startingIndex ) {
+        /*Iterator it = keywords.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry element = (Map.Entry) it.next();
             String keyword = (String) element.getKey();
-            if (word.equals(keyword))
+            if (word.equals(keyword)) {
                 changeTextColor(startingIndex, word.length(), (Color) element.getValue());
+            }
             it.remove();
+        }*/
+        if(keywords.containsKey(word)) {
+            System.out.println(word + " " + startingIndex);
+            changeTextColor(startingIndex, word.length(), (Color) keywords.get(word));
         }
     }
-
+    private boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
     public void updateTextColors() {
         int index = 0;
         word = "";
@@ -117,5 +132,6 @@ public class Language {
         Color c = new Color(100, 100, 50);
         System.out.println(c.toString());
     }
+
 
 }

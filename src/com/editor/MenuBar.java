@@ -15,8 +15,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
     MenuOptionTree editTree; //undo, redo
     MenuOptionTree formatTree; //font (window pops out)
     MenuOptionTree viewTree; //color (window pops out)
+    MenuOptionTree languageTree;
     MenuOption fileNew, fileOpen, fileSave, fileSaveAs, fileExit;
     MenuOption editUndo, editRedo, editFind, editReplace;
+    MenuOption chooseLanguage;
     MenuOption formatFont;
     JCheckBoxMenuItem wordWrap;
     MenuOption viewColor;
@@ -25,6 +27,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
     EditFunctions editFunctions;
     FormatFunctions formatFunctions;
     ViewFunctions viewFunctions;
+    AddLanguages addLanguages;
 
     public MenuBar(NotepadWindow notepadWindow) {
         this.notepadWindow = notepadWindow;
@@ -35,6 +38,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
         setupFormatTree();
         setupViewTree();
         setupFunctions();
+        setupLanguage();
     }
 
     public void setupFileTree() {
@@ -94,6 +98,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
         editReplace.addActionListener(this);
         editReplace.setActionCommand("Replace");
         editTree.add(editReplace);
+
     }
 
     public void setupFormatTree() {
@@ -128,6 +133,16 @@ public class MenuBar extends JMenuBar implements ActionListener {
         editFunctions = new EditFunctions(notepadWindow);
         formatFunctions = new FormatFunctions(fontWindow);
         viewFunctions = new ViewFunctions(colorWindow);
+        addLanguages = new AddLanguages();
+    }
+    public void setupLanguage() {
+        languageTree = new MenuOptionTree("Language");
+        add(languageTree);
+
+        chooseLanguage = new MenuOption("C language");
+        chooseLanguage.addActionListener(this);
+        chooseLanguage.setActionCommand("c");
+        languageTree.add(chooseLanguage);
     }
 
     @Override
@@ -145,6 +160,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
             case "Replace": editFunctions.replace(); break;
             case "Font": formatFunctions.font(); break;
             case "Color": viewFunctions.color(); break;
+            case AddLanguages.C: AddLanguages.disableAllExcept(command); AddLanguages.setUpC(); break;
+            // case AddLanguages.InnyJezyk: AddLanguages.disableAllExcept(command); AddLanguages.setUpInny(); break;
         }
     }
 }

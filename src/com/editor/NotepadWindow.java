@@ -58,13 +58,11 @@ public class NotepadWindow extends Window implements Runnable {
         textPane.addKeyListener(new InputHandler());
         textPane.getDocument().addUndoableEditListener(new UndoableEditListener() {
             public void undoableEditHappened(UndoableEditEvent e) {
-                System.out.println("LOL: " + ignoreNextEdit);
                 if (!ignoreNextEdit) {
                     undoManager.addEdit(e.getEdit());
                     FileFunctions.ifEdited = true;
-                    if (!EditFunctions.ifCsetUp)
-                        EditFunctions.setUpC();
-                    EditFunctions.languageC.updateTextColors();
+                    AddLanguages.updateText();
+
                 } else {
                     ignoreNextEdit = false;
                 }

@@ -3,15 +3,12 @@ package com.editor;
 import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+import java.util.*;
 
 
 public class Language {
 
-    protected static class SectionMarker { //klasa przechowująca znaki rozpoczynające i kończące sekcję (np. "<" i ">", "{" i "}")
+    private static class SectionMarker { //klasa przechowująca znaki rozpoczynające i kończące sekcję (np. "<" i ">", "{" i "}")
         public char beginning;
         public char ending;
 
@@ -21,9 +18,9 @@ public class Language {
         }
     }
 
-    protected Map<String, Color> keywords;
-    protected ArrayList<SectionMarker> sectionMarkers;
-    protected boolean highlightNumbers;
+    private Map<String, Color> keywords;
+    private ArrayList<SectionMarker> sectionMarkers;
+    private boolean highlightNumbers;
 
     public static String word;
 
@@ -33,7 +30,7 @@ public class Language {
         highlightNumbers = false;
     }
 
-    protected static boolean isWhitespaceCharacter(char c) {
+    private static boolean isWhitespaceCharacter(char c) {
         switch (c) {
             case ' ': return true;
             case '\n': return true;
@@ -42,15 +39,16 @@ public class Language {
         }
     }
 
-    protected void changeTextColor(int pos, int length, Color color) { //funkcja zmieniająca kolor danego fragmentu tekstu (z tego co wiem trzeba usuwać tekst i wstawiać go na nowo z kolorkiem)
+    private void changeTextColor(int pos, int length, Color color) { //funkcja zmieniająca kolor danego fragmentu tekstu (z tego co wiem trzeba usuwać tekst i wstawiać go na nowo z kolorkiem)
         StyledDocument doc = NotepadWindow.textPane.getStyledDocument();
         SimpleAttributeSet sas = new SimpleAttributeSet();
         StyleConstants.setForeground(sas, color);
         NotepadWindow.ignoreNextEdit = true;
         doc.setCharacterAttributes(pos, length, sas, false);
+        StyleConstants.setForeground(sas, Color.BLACK);
     }
 
-    protected int getNextWord(int startingIndex) { //zwraca indeks znalezionego słowa; słowo zapisuje w statycznej zmiennej globalnej "word"; startingIndex to indeks, od którego zaczynane jest sprawdzanie
+    private int getNextWord(int startingIndex) { //zwraca indeks znalezionego słowa; słowo zapisuje w statycznej zmiennej globalnej "word"; startingIndex to indeks, od którego zaczynane jest sprawdzanie
         word = "";
         String text = NotepadWindow.textPane.getText();
         int i = startingIndex;
@@ -71,9 +69,9 @@ public class Language {
         return beginningIndex;
     }
 
-    protected void checkKeywords(int startingIndex) {
+    private void checkKeywords(int startingIndex) {
         if (keywords.containsKey(word)) {
-            System.out.println(startingIndex + ". " + word);
+            //System.out.println(startingIndex + ". " + word);
             changeTextColor(startingIndex, word.length(), (Color) keywords.get(word));
         }
     }
@@ -96,9 +94,19 @@ public class Language {
 
             // Liczby
             /* do zrobienia (trzeba rozpoznawać liczby ze stringa, np. "15030", "1032.432", itp.) */
-
+            if(isNumeric(word) && highlightNumbers) {
+                changeTextColor(index, word.length(), Color.MAGENTA);
+            }
             // Sekcje
-            /* do zrobienia */
+            int i=0;
+            for(SectionMarker marker : sectionMarkers) {
+                for(char c : word.toCharArray()) {
+                    if (c == marker.beginning || c == marker.ending) {
+                        changeTextColor(index + i, 1, Color.CYAN);
+                    }
+                    i++;
+                }
+            }
         }
     }
 

@@ -58,6 +58,7 @@ public class FileFunctions {
         fAddress = null;
         System.out.println("New File");
         ifEdited = false;
+        AddLanguages.disableAll();
     }
 
     public static void openFile() {
@@ -86,6 +87,7 @@ public class FileFunctions {
             buff.close();
 
             System.out.println("Opened: "+ fAddress + fName);
+            AddLanguages.disableAll();
             ifEdited = false;
 
         }catch (Exception e) {

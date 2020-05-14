@@ -15,6 +15,7 @@ public class NotepadWindow extends Window implements Runnable {
     MenuBar menuBar;
     JScrollPane scrollPane;
     static Font currentFont;
+    public static boolean ignoreNextEdit;
 
     @Override
     public void run() {
@@ -23,8 +24,8 @@ public class NotepadWindow extends Window implements Runnable {
         setupTextArea();
         setupMenuBar();
         setVisible(true);
+        ignoreNextEdit = false;
         System.out.println(SwingUtilities.isEventDispatchThread());
-
     }
 
     public void MakeNotepadWindow() {
@@ -45,7 +46,7 @@ public class NotepadWindow extends Window implements Runnable {
                 if(ifSave == YES_OPTION) {
                     FileFunctions.saveFile();
                     System.exit(0);
-                } else if(ifSave == NO_OPTION) {
+                } else if (ifSave == NO_OPTION) {
                     System.exit(0);
                 }
             }
@@ -57,12 +58,16 @@ public class NotepadWindow extends Window implements Runnable {
         textPane.addKeyListener(new InputHandler());
         textPane.getDocument().addUndoableEditListener(new UndoableEditListener() {
             public void undoableEditHappened(UndoableEditEvent e) {
-                undoManager.addEdit(e.getEdit());
-                FileFunctions.ifEdited = true;
-                if(!EditFunctions.ifCsetUp) {
-                    EditFunctions.setUpC();
+                System.out.println("LOL: " + ignoreNextEdit);
+                if (!ignoreNextEdit) {
+                    undoManager.addEdit(e.getEdit());
+                    FileFunctions.ifEdited = true;
+                    if (!EditFunctions.ifCsetUp)
+                        EditFunctions.setUpC();
+                    EditFunctions.languageC.updateTextColors();
+                } else {
+                    ignoreNextEdit = false;
                 }
-                EditFunctions.languageC.updateTextColors(); // tutaj jest wywoływana niedziałająca funkcjonalność
             }
         });
         textPane.setFont(currentFont);

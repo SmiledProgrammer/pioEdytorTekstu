@@ -43,17 +43,11 @@ public class Language {
     }
 
     protected void changeTextColor(int pos, int length, Color color) { //funkcja zmieniająca kolor danego fragmentu tekstu (z tego co wiem trzeba usuwać tekst i wstawiać go na nowo z kolorkiem)
-        JTextPane pane = NotepadWindow.textPane;
         StyledDocument doc = NotepadWindow.textPane.getStyledDocument();
-        Style style = pane.addStyle(color.toString(), null);
-        StyleConstants.setForeground(style, color);
-        try {
-            int test = pos + length;
-            System.out.println(pos+" "+test+" "+word);
-            doc.remove(pos, length);
-            System.out.println(pos+" "+test+" "+word);
-            doc.insertString(pos, word, style);
-        } catch (BadLocationException ex) {}
+        SimpleAttributeSet sas = new SimpleAttributeSet();
+        StyleConstants.setForeground(sas, color);
+        NotepadWindow.ignoreNextEdit = true;
+        doc.setCharacterAttributes(pos, length, sas, false);
     }
 
     protected int getNextWord(int startingIndex) { //zwraca indeks znalezionego słowa; słowo zapisuje w statycznej zmiennej globalnej "word"; startingIndex to indeks, od którego zaczynane jest sprawdzanie
@@ -77,21 +71,13 @@ public class Language {
         return beginningIndex;
     }
 
-    protected void checkKeywords(int startingIndex ) {
-        /*Iterator it = keywords.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry element = (Map.Entry) it.next();
-            String keyword = (String) element.getKey();
-            if (word.equals(keyword)) {
-                changeTextColor(startingIndex, word.length(), (Color) element.getValue());
-            }
-            it.remove();
-        }*/
-        if(keywords.containsKey(word)) {
-            System.out.println(word + " " + startingIndex);
+    protected void checkKeywords(int startingIndex) {
+        if (keywords.containsKey(word)) {
+            System.out.println(startingIndex + ". " + word);
             changeTextColor(startingIndex, word.length(), (Color) keywords.get(word));
         }
     }
+
     private boolean isNumeric(String str) {
         try {
             Double.parseDouble(str);
@@ -100,8 +86,9 @@ public class Language {
             return false;
         }
     }
+
     public void updateTextColors() {
-        int index = 0;
+        int index = -1;
         word = "";
         while (index + word.length() + 1 < NotepadWindow.textPane.getText().length()) {
             index = getNextWord(index + word.length() + 1); // Pobieranie następnego słowa w tekście
@@ -129,9 +116,14 @@ public class Language {
 
     //do usunięcia potem
     public static void main(String[] args) {
-        Color c = new Color(100, 100, 50);
-        System.out.println(c.toString());
+        Language l = new Language();
+        String text = "Ala ma kota.\nI jeszcze   psa!";
+        int index = -1;
+        l.word = "";
+        while (index + word.length() + 1 < text.length()) {
+            index = l.getNextWord(index + word.length() + 1);
+            System.out.println(index + ". " + word);
+        }
     }
-
 
 }

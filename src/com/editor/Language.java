@@ -11,10 +11,12 @@ public class Language {
     private static class SectionMarker { //klasa przechowująca znaki rozpoczynające i kończące sekcję (np. "<" i ">", "{" i "}")
         public char beginning;
         public char ending;
+        public boolean colorWholeSection;
 
-        public SectionMarker(char beginning, char ending) {
+        public SectionMarker(char beginning, char ending, boolean colorWholeSection) {
             this.beginning = beginning;
             this.ending = ending;
+            this.colorWholeSection = colorWholeSection;
         }
     }
 
@@ -43,10 +45,10 @@ public class Language {
     private void resetTextColor() {
         StyledDocument doc = NotepadWindow.textPane.getStyledDocument();
         SimpleAttributeSet sas = new SimpleAttributeSet();
-        StyleConstants.setForeground(sas, Color.BLACK);
+        StyleConstants.setForeground(sas, ColorWindow.defaultForegroundColor);
+        System.out.println(ColorWindow.defaultForegroundColor);
         NotepadWindow.ignoreNextEdit = true;
         doc.setCharacterAttributes(0, NotepadWindow.textPane.getText().length(), sas, false);
-
     }
 
     private void changeTextColor(int pos, int length, Color color) { //funkcja zmieniająca kolor danego fragmentu tekstu (z tego co wiem trzeba usuwać tekst i wstawiać go na nowo z kolorkiem)
@@ -84,9 +86,7 @@ public class Language {
     }
 
     private void checkKeywords(int startingIndex) {
-        System.out.println("1. " + word + " - " + word.length());
         if (keywords.containsKey(word)) {
-            System.out.println("2. " + word + " - " + word.length());
             changeTextColor(startingIndex, word.length(), (Color) keywords.get(word));
         }
     }
@@ -128,7 +128,11 @@ public class Language {
     }
 
     public void addSectionMarker(char begin, char end) {
-        sectionMarkers.add(new SectionMarker(begin, end));
+        sectionMarkers.add(new SectionMarker(begin, end, false));
+    }
+
+    public void addSectionMarker(char begin, char end, boolean colorWholeSection) {
+        sectionMarkers.add(new SectionMarker(begin, end, colorWholeSection));
     }
 
     public void setHighlightNumbers(boolean value) {

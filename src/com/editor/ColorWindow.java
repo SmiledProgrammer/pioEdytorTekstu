@@ -10,6 +10,8 @@ public class ColorWindow extends Window implements ActionListener {
     JLabel jButtonLabel;
     JButton jBackgroundColorButton, jTextColorButton, jMenuBarColorButton, jMenuTreeColorButton, jMenuSelectColorButton, jMenuHoverButton;
 
+    public static Color defaultForegroundColor = Color.BLACK;
+
     public void CreateColor(){
         MakeColorWindow();
         setupDefaultComponentOptions();
@@ -78,7 +80,9 @@ public class ColorWindow extends Window implements ActionListener {
     public void changeText(){
         Color initialText = NotepadWindow.textPane.getForeground();
         Color text = JColorChooser.showDialog(this, "Choose", initialText);
+        defaultForegroundColor = text;
         NotepadWindow.textPane.setForeground(text);
+        AddLanguages.updateText();
     }
 
     public void changeMenuBar(){

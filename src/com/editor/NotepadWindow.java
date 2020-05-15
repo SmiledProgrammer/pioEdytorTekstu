@@ -62,7 +62,6 @@ public class NotepadWindow extends Window implements Runnable {
                     undoManager.addEdit(e.getEdit());
                     FileFunctions.ifEdited = true;
                     AddLanguages.updateText();
-
                 } else {
                     ignoreNextEdit = false;
                 }

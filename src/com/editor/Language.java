@@ -23,6 +23,7 @@ public class Language {
     private boolean highlightNumbers;
 
     public static String word;
+    private int newLines;
 
     public Language() {
         keywords = new HashMap<>();
@@ -30,22 +31,32 @@ public class Language {
         highlightNumbers = false;
     }
 
-    private static boolean isWhitespaceCharacter(char c) {
-        switch (c) {
-            case ' ': return true;
-            case '\n': return true;
-            case '\t': return true;
-            default: return false;
+    private boolean isWhitespaceCharacter(char c) {
+        //dodaj sprawdzanie czy nie należy do sekcji
+        for (SectionMarker sm : sectionMarkers) {
+            if (c == sm.beginning || c == sm.ending)
+                return false;
         }
+        return ((int)c <= 47 || (int)c >= 58 && (int)c <= 64 || (int)c >= 91 && (int)c <= 96 || (int)c >= 123 && (int)c <= 127) ? true : false;
+    }
+
+    private void resetTextColor() {
+        StyledDocument doc = NotepadWindow.textPane.getStyledDocument();
+        SimpleAttributeSet sas = new SimpleAttributeSet();
+        StyleConstants.setForeground(sas, Color.BLACK);
+        NotepadWindow.ignoreNextEdit = true;
+        doc.setCharacterAttributes(0, NotepadWindow.textPane.getText().length(), sas, false);
+
     }
 
     private void changeTextColor(int pos, int length, Color color) { //funkcja zmieniająca kolor danego fragmentu tekstu (z tego co wiem trzeba usuwać tekst i wstawiać go na nowo z kolorkiem)
+        pos -= newLines; // Korekcja pozycji, bo StyledDocument ignoruje znaki nowych linii
         StyledDocument doc = NotepadWindow.textPane.getStyledDocument();
         SimpleAttributeSet sas = new SimpleAttributeSet();
+
         StyleConstants.setForeground(sas, color);
         NotepadWindow.ignoreNextEdit = true;
         doc.setCharacterAttributes(pos, length, sas, false);
-        StyleConstants.setForeground(sas, Color.BLACK);
     }
 
     private int getNextWord(int startingIndex) { //zwraca indeks znalezionego słowa; słowo zapisuje w statycznej zmiennej globalnej "word"; startingIndex to indeks, od którego zaczynane jest sprawdzanie
@@ -55,13 +66,16 @@ public class Language {
         int beginningIndex;
         char c;
         do { //szukanie początku słowa
-            c = text.charAt(i);
-            i++;
+            c = text.charAt(i++);
+            if (c == '\n')
+                newLines++;
         } while (isWhitespaceCharacter(c) && i < text.length());
         beginningIndex = i - 1;
         while (!isWhitespaceCharacter(c) && i < text.length()) { //szukanie końca słowa
             word += c;
             c = text.charAt(i);
+            if (c == '\n')
+                newLines++;
             i++;
         }
         if (!isWhitespaceCharacter(c) && i == text.length()) //dodawanie ostatniego znaku
@@ -70,8 +84,9 @@ public class Language {
     }
 
     private void checkKeywords(int startingIndex) {
+        System.out.println("1. " + word + " - " + word.length());
         if (keywords.containsKey(word)) {
-            //System.out.println(startingIndex + ". " + word);
+            System.out.println("2. " + word + " - " + word.length());
             changeTextColor(startingIndex, word.length(), (Color) keywords.get(word));
         }
     }
@@ -80,31 +95,29 @@ public class Language {
         try {
             Double.parseDouble(str);
             return true;
-        } catch(NumberFormatException e){
+        } catch (NumberFormatException e){
             return false;
         }
     }
 
     public void updateTextColors() {
+        resetTextColor();
         int index = -1;
         word = "";
+        newLines = 0;
         while (index + word.length() + 1 < NotepadWindow.textPane.getText().length()) {
             index = getNextWord(index + word.length() + 1); // Pobieranie następnego słowa w tekście
             checkKeywords(index); // Słowa kluczowe
 
-            // Liczby
-            /* do zrobienia (trzeba rozpoznawać liczby ze stringa, np. "15030", "1032.432", itp.) */
-            if(isNumeric(word) && highlightNumbers) {
+            if (isNumeric(word) && highlightNumbers) { // Liczby
                 changeTextColor(index, word.length(), Color.MAGENTA);
             }
-            // Sekcje
-            int i=0;
-            for(SectionMarker marker : sectionMarkers) {
-                for(char c : word.toCharArray()) {
-                    if (c == marker.beginning || c == marker.ending) {
-                        changeTextColor(index + i, 1, Color.CYAN);
+
+            if (word.length() == 1) {
+                for (SectionMarker marker : sectionMarkers) { // Sekcje
+                    if (word.charAt(0) == marker.beginning || word.charAt(0) == marker.ending) {
+                        changeTextColor(index, 1, Color.CYAN);
                     }
-                    i++;
                 }
             }
         }
@@ -125,13 +138,14 @@ public class Language {
     //do usunięcia potem
     public static void main(String[] args) {
         Language l = new Language();
-        String text = "Ala ma kota.\nI jeszcze   psa!";
+        String text = "Alamakota.\nno i jeszcze   psa!";
         int index = -1;
         l.word = "";
         while (index + word.length() + 1 < text.length()) {
             index = l.getNextWord(index + word.length() + 1);
             System.out.println(index + ". " + word);
         }
+        System.out.println(text.charAt(11));
     }
 
 }

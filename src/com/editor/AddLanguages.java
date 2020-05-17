@@ -55,20 +55,50 @@ public class AddLanguages {
         // dla kolejnych jezykow kolejne warunki
     }
 
-    public static void setUpC() {   // należy dokończyć
-        if( /*!ifCsetUp*/ !getIfSetup(C) || languageC != null)
+       public static void setUpC() {   
+        if(!getIfSetup(C) || languageC != null)
             return;
         languageC = new Language();
         languageC.addKeyword("void", Color.RED);
         languageC.addKeyword("int", Color.RED);
         languageC.addKeyword("char", Color.RED);
+        languageC.addKeyword("unsigned", Color.RED);
+        languageC.addKeyword("union", Color.RED);
+        languageC.addKeyword("static", Color.RED);
+        languageC.addKeyword("short", Color.RED);
+        languageC.addKeyword("struct", Color.RED);
+        languageC.addKeyword("signed", Color.RED);
+        languageC.addKeyword("float", Color.RED);
         languageC.addKeyword("double", Color.RED);
+        languageC.addKeyword("char", Color.RED);
+        languageC.addKeyword("long", Color.RED);
+        languageC.addKeyword("do", Color.blue);
+        languageC.addKeyword("extern", Color.blue);
+        languageC.addKeyword("if", Color.blue);
+        languageC.addKeyword("return", Color.blue);
+        languageC.addKeyword("break", Color.blue);
+        languageC.addKeyword("default", Color.blue);
+        languageC.addKeyword("enum", Color.blue);
+        languageC.addKeyword("goto", Color.blue);
+        languageC.addKeyword("far", Color.blue);
+        languageC.addKeyword("huge", Color.blue);
+        languageC.addKeyword("pascal", Color.blue);
+        languageC.addKeyword("register", Color.blue);
+        languageC.addKeyword("sizeof", Color.blue);
+        languageC.addKeyword("while", Color.blue);
+        languageC.addKeyword("case", Color.blue);
+        languageC.addKeyword("auto", Color.blue);
+        languageC.addKeyword("continue", Color.blue);
+        languageC.addKeyword("else", Color.blue);
+        languageC.addKeyword("for", Color.blue);
+        languageC.addKeyword("switch", Color.blue);
         languageC.addKeyword("typedef", Color.blue);
-        languageC.addKeyword("struct", Color.blue); // resztę trzeba dopisać, to tylko prototyp
+        languageC.addKeyword("struct", Color.blue); 
+
 
         languageC.addSectionMarker('{', '}');
         languageC.setHighlightNumbers(true);
-        //ifCsetUp = true;
+        
     }
 
     public static void setUpJava() {

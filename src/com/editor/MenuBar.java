@@ -18,7 +18,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
     MenuOptionTree languageTree;
     MenuOption fileNew, fileOpen, fileSave, fileSaveAs, fileExit;
     MenuOption editUndo, editRedo, editFind, editReplace;
-    MenuOption chooseLanguage;
+    MenuOption chooseLanguageC, chooseLanguageJava;
     MenuOption formatFont;
     JCheckBoxMenuItem wordWrap;
     MenuOption viewColor;
@@ -135,14 +135,21 @@ public class MenuBar extends JMenuBar implements ActionListener {
         viewFunctions = new ViewFunctions(colorWindow);
         addLanguages = new AddLanguages();
     }
+
     public void setupLanguage() {
         languageTree = new MenuOptionTree("Language");
         add(languageTree);
 
-        chooseLanguage = new MenuOption("C language");
-        chooseLanguage.addActionListener(this);
-        chooseLanguage.setActionCommand("c");
-        languageTree.add(chooseLanguage);
+        chooseLanguageC = new MenuOption("C language");
+        chooseLanguageC.addActionListener(this);
+        chooseLanguageC.setActionCommand("c");
+
+        chooseLanguageJava = new MenuOption("Java language");
+        chooseLanguageJava.addActionListener(this);
+        chooseLanguageJava.setActionCommand("java");
+
+        languageTree.add(chooseLanguageC);
+        languageTree.add(chooseLanguageJava);
     }
 
     @Override
@@ -161,6 +168,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
             case "Font": formatFunctions.font(); break;
             case "Color": viewFunctions.color(); break;
             case AddLanguages.C: AddLanguages.disableAllExcept(command); AddLanguages.setUpC(); break;
+            case AddLanguages.JAVA: AddLanguages.disableAllExcept(command); AddLanguages.setUpJava(); break;
             // case AddLanguages.InnyJezyk: AddLanguages.disableAllExcept(command); AddLanguages.setUpInny(); break;
         }
     }

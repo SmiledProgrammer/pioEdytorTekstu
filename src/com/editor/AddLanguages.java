@@ -10,8 +10,10 @@ import java.util.Iterator;
 public class AddLanguages {
     public static final String C = "c";
     public static final String JAVA = "java";
+    public static final String HTML = "html";
     static private Language languageC;
     static private Language languageJava;
+    static private Language languageHTML;
     static private Map<String, Boolean> languages;
 
     public AddLanguages() {
@@ -19,6 +21,7 @@ public class AddLanguages {
         languages = new HashMap<>();
         languages.put(C,false);
         languages.put(JAVA,false);
+        languages.put(HTML,false);
     }
 
     public static boolean getIfSetup(String l) {
@@ -52,6 +55,9 @@ public class AddLanguages {
 
         if (getIfSetup(JAVA))
             languageJava.updateTextColors();
+
+        if (getIfSetup(HTML))
+            languageHTML.updateTextColors();
         // dla kolejnych jezykow kolejne warunki
     }
 
@@ -155,5 +161,112 @@ public class AddLanguages {
 
         languageJava.addSectionMarker('{', '}');
         languageJava.setHighlightNumbers(true);
+    }
+
+    public static void setUpHTML() {
+        if (!getIfSetup(HTML) || languageHTML != null)
+            return;
+
+        languageHTML = new Language();
+        languageHTML.addKeyword("html", Color.blue);
+        languageHTML.addKeyword("head", Color.blue);
+        languageHTML.addKeyword("body", Color.blue);
+        languageHTML.addKeyword("title", Color.blue);
+        languageHTML.addKeyword("br", Color.blue);
+        languageHTML.addKeyword("u", Color.blue);
+        languageHTML.addKeyword("b", Color.blue);
+        languageHTML.addKeyword("i", Color.blue);
+        languageHTML.addKeyword("tt", Color.blue);
+        languageHTML.addKeyword("strike", Color.blue);
+        languageHTML.addKeyword("big", Color.blue);
+        languageHTML.addKeyword("small", Color.blue);
+        languageHTML.addKeyword("font", Color.blue);
+        languageHTML.addKeyword("basefont", Color.blue);
+        languageHTML.addKeyword("sub", Color.blue);
+        languageHTML.addKeyword("sup", Color.blue);
+        languageHTML.addKeyword("h1", Color.blue);
+        languageHTML.addKeyword("h2", Color.blue);
+        languageHTML.addKeyword("h3", Color.blue);
+        languageHTML.addKeyword("h4", Color.blue);
+        languageHTML.addKeyword("h5", Color.blue);
+        languageHTML.addKeyword("h6", Color.blue);
+        languageHTML.addKeyword("hr", Color.blue);
+        languageHTML.addKeyword("p", Color.blue);
+        languageHTML.addKeyword("table", Color.blue);
+        languageHTML.addKeyword("tr", Color.blue);
+        languageHTML.addKeyword("td", Color.blue);
+        languageHTML.addKeyword("img", Color.blue);
+        languageHTML.addKeyword("div", Color.blue);
+        languageHTML.addKeyword("link", Color.blue);
+        languageHTML.addKeyword("meta", Color.blue);
+        languageHTML.addKeyword("a", Color.blue);//-
+        languageHTML.addKeyword("bgcolor", Color.red);
+        languageHTML.addKeyword("text", Color.red);
+        languageHTML.addKeyword("size", Color.red);
+        languageHTML.addKeyword("color", Color.red);
+        languageHTML.addKeyword("face", Color.red);
+        languageHTML.addKeyword("border", Color.red);
+        languageHTML.addKeyword("width", Color.red);
+        languageHTML.addKeyword("height", Color.red);
+        languageHTML.addKeyword("href", Color.red);
+        languageHTML.addKeyword("src", Color.red);
+        languageHTML.addKeyword("rel", Color.red);
+        languageHTML.addKeyword("id", Color.red);
+        languageHTML.addKeyword("class", Color.red);
+        languageHTML.addKeyword("content", Color.red);
+        languageHTML.addKeyword("public", Color.red);
+        languageHTML.addKeyword("type", Color.red);
+
+        languageHTML.addKeyword("HTML", Color.blue);
+        languageHTML.addKeyword("HEAD", Color.blue);
+        languageHTML.addKeyword("BODY", Color.blue);
+        languageHTML.addKeyword("TITLE", Color.blue);
+        languageHTML.addKeyword("BR", Color.blue);
+        languageHTML.addKeyword("U", Color.blue);
+        languageHTML.addKeyword("B", Color.blue);
+        languageHTML.addKeyword("I", Color.blue);
+        languageHTML.addKeyword("TT", Color.blue);
+        languageHTML.addKeyword("STRIKE", Color.blue);
+        languageHTML.addKeyword("BIG", Color.blue);
+        languageHTML.addKeyword("SMALL", Color.blue);
+        languageHTML.addKeyword("FONT", Color.blue);
+        languageHTML.addKeyword("BASEFONT", Color.blue);
+        languageHTML.addKeyword("SUB", Color.blue);
+        languageHTML.addKeyword("SUP", Color.blue);
+        languageHTML.addKeyword("H1", Color.blue);
+        languageHTML.addKeyword("H2", Color.blue);
+        languageHTML.addKeyword("H3", Color.blue);
+        languageHTML.addKeyword("H4", Color.blue);
+        languageHTML.addKeyword("H5", Color.blue);
+        languageHTML.addKeyword("H6", Color.blue);
+        languageHTML.addKeyword("HR", Color.blue);
+        languageHTML.addKeyword("P", Color.blue);
+        languageHTML.addKeyword("TABLE", Color.blue);
+        languageHTML.addKeyword("TR", Color.blue);
+        languageHTML.addKeyword("TD", Color.blue);
+        languageHTML.addKeyword("IMG", Color.blue);
+        languageHTML.addKeyword("DIV", Color.blue);
+        languageHTML.addKeyword("LINK", Color.blue);
+        languageHTML.addKeyword("META", Color.blue);
+        languageHTML.addKeyword("A", Color.blue);//-
+        languageHTML.addKeyword("BGCOLOR", Color.red);
+        languageHTML.addKeyword("TEXT", Color.red);
+        languageHTML.addKeyword("SIZE", Color.red);
+        languageHTML.addKeyword("COLOR", Color.red);
+        languageHTML.addKeyword("FACE", Color.red);
+        languageHTML.addKeyword("BORDER", Color.red);
+        languageHTML.addKeyword("WIDTH", Color.red);
+        languageHTML.addKeyword("HEIGHT", Color.red);
+        languageHTML.addKeyword("HREF", Color.red);
+        languageHTML.addKeyword("SRC", Color.red);
+        languageHTML.addKeyword("REL", Color.red);
+        languageHTML.addKeyword("ID", Color.red);
+        languageHTML.addKeyword("CLASS", Color.red);
+        languageHTML.addKeyword("CONTENT", Color.red);
+        languageHTML.addKeyword("PUBLIC", Color.red);
+        languageHTML.addKeyword("TYPE", Color.red);
+
+        languageHTML.setHighlightNumbers(true);
+        languageHTML.addSectionMarker('"', '"');
     }
 }

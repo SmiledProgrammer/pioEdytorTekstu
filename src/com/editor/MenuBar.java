@@ -18,7 +18,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
     MenuOptionTree languageTree;
     MenuOption fileNew, fileOpen, fileSave, fileSaveAs, fileExit;
     MenuOption editUndo, editRedo, editFind, editReplace;
-    MenuOption chooseLanguageC, chooseLanguageJava;
+    MenuOption chooseLanguageC, chooseLanguageJava, chooseLanguageHTML;
     MenuOption formatFont;
     JCheckBoxMenuItem wordWrap;
     MenuOption viewColor;
@@ -148,8 +148,13 @@ public class MenuBar extends JMenuBar implements ActionListener {
         chooseLanguageJava.addActionListener(this);
         chooseLanguageJava.setActionCommand("java");
 
+        chooseLanguageHTML = new MenuOption("HTML language");
+        chooseLanguageHTML.addActionListener(this);
+        chooseLanguageHTML.setActionCommand("html");
+
         languageTree.add(chooseLanguageC);
         languageTree.add(chooseLanguageJava);
+        languageTree.add(chooseLanguageHTML);
     }
 
     @Override
@@ -169,6 +174,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
             case "Color": viewFunctions.color(); break;
             case AddLanguages.C: AddLanguages.disableAllExcept(command); AddLanguages.setUpC(); break;
             case AddLanguages.JAVA: AddLanguages.disableAllExcept(command); AddLanguages.setUpJava(); break;
+            case AddLanguages.HTML: AddLanguages.disableAllExcept(command); AddLanguages.setUpHTML(); break;
             // case AddLanguages.InnyJezyk: AddLanguages.disableAllExcept(command); AddLanguages.setUpInny(); break;
         }
     }

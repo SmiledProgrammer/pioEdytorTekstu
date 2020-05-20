@@ -50,14 +50,20 @@ public class AddLanguages {
     }
 
     public static void updateText() {
-        if(getIfSetup(C))
+        if(getIfSetup(C)) {
             languageC.updateTextColors();
-
-        if (getIfSetup(JAVA))
+            return;
+        }
+        if (getIfSetup(JAVA)) {
             languageJava.updateTextColors();
+            return;
+        }
 
-        if (getIfSetup(HTML))
+        if (getIfSetup(HTML)) {
             languageHTML.updateTextColors();
+            return;
+        }
+        Language.resetTextColor();
         // dla kolejnych jezykow kolejne warunki
     }
 

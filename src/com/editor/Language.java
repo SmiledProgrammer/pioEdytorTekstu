@@ -50,7 +50,7 @@ public class Language {
         return ((int)c <= 47 || (int)c >= 58 && (int)c <= 64 || (int)c >= 91 && (int)c <= 96 || (int)c >= 123 && (int)c <= 127) ? true : false;
     }
 
-    private void resetTextColor() {
+    public static void resetTextColor() {
         StyledDocument doc = NotepadWindow.textPane.getStyledDocument();
         SimpleAttributeSet sas = new SimpleAttributeSet();
         StyleConstants.setForeground(sas, ColorWindow.defaultForegroundColor);

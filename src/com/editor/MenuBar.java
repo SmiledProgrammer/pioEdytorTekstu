@@ -18,7 +18,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
     MenuOptionTree languageTree;
     MenuOption fileNew, fileOpen, fileSave, fileSaveAs, fileExit;
     MenuOption editUndo, editRedo, editFind, editReplace;
-    MenuOption chooseLanguageC, chooseLanguageJava, chooseLanguageHTML;
+    MenuOption chooseLanguageC, chooseLanguageJava, chooseLanguageHTML, chooseNone;
     MenuOption formatFont;
     JCheckBoxMenuItem wordWrap;
     MenuOption viewColor;
@@ -140,6 +140,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
         languageTree = new MenuOptionTree("Language");
         add(languageTree);
 
+        chooseNone = new MenuOption("Disable languages");
+        chooseNone.addActionListener(this);
+        chooseNone.setActionCommand("None");
+
         chooseLanguageC = new MenuOption("C language");
         chooseLanguageC.addActionListener(this);
         chooseLanguageC.setActionCommand("c");
@@ -152,6 +156,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
         chooseLanguageHTML.addActionListener(this);
         chooseLanguageHTML.setActionCommand("html");
 
+        languageTree.add(chooseNone);
         languageTree.add(chooseLanguageC);
         languageTree.add(chooseLanguageJava);
         languageTree.add(chooseLanguageHTML);
@@ -172,9 +177,22 @@ public class MenuBar extends JMenuBar implements ActionListener {
             case "Replace": editFunctions.replace(); break;
             case "Font": formatFunctions.font(); break;
             case "Color": viewFunctions.color(); break;
-            case AddLanguages.C: AddLanguages.disableAllExcept(command); AddLanguages.setUpC(); break;
-            case AddLanguages.JAVA: AddLanguages.disableAllExcept(command); AddLanguages.setUpJava(); break;
-            case AddLanguages.HTML: AddLanguages.disableAllExcept(command); AddLanguages.setUpHTML(); break;
+            case "None": AddLanguages.disableAll(); AddLanguages.updateText(); break;
+            case AddLanguages.C:
+                AddLanguages.disableAllExcept(command);
+                AddLanguages.setUpC();
+                AddLanguages.updateText();
+                break;
+            case AddLanguages.JAVA:
+                AddLanguages.disableAllExcept(command);
+                AddLanguages.setUpJava();
+                AddLanguages.updateText();
+                break;
+            case AddLanguages.HTML:
+                AddLanguages.disableAllExcept(command);
+                AddLanguages.setUpHTML();
+                AddLanguages.updateText();
+                break;
             // case AddLanguages.InnyJezyk: AddLanguages.disableAllExcept(command); AddLanguages.setUpInny(); break;
         }
     }

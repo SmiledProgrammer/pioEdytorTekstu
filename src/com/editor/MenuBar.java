@@ -18,7 +18,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
     static MenuOptionTree languageTree;
     static MenuOption fileNew, fileOpen, fileSave, fileSaveAs, fileExit;
     static MenuOption editUndo, editRedo, editFind, editReplace;
-    static MenuOption chooseLanguageC, chooseLanguageJava;
+    static MenuOption chooseLanguageC, chooseLanguageJava, chooseLanguageHTML, chooseNone;
     static MenuOption formatFont;
     JCheckBoxMenuItem wordWrap;
     static MenuOption viewThemes;
@@ -144,6 +144,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
         languageTree = new MenuOptionTree("Language");
         add(languageTree);
 
+        chooseNone = new MenuOption("Disable languages");
+        chooseNone.addActionListener(this);
+        chooseNone.setActionCommand("None");
+
         chooseLanguageC = new MenuOption("C language");
         chooseLanguageC.addActionListener(this);
         chooseLanguageC.setActionCommand("c");
@@ -152,8 +156,14 @@ public class MenuBar extends JMenuBar implements ActionListener {
         chooseLanguageJava.addActionListener(this);
         chooseLanguageJava.setActionCommand("java");
 
+        chooseLanguageHTML = new MenuOption("HTML language");
+        chooseLanguageHTML.addActionListener(this);
+        chooseLanguageHTML.setActionCommand("html");
+
+        languageTree.add(chooseNone);
         languageTree.add(chooseLanguageC);
         languageTree.add(chooseLanguageJava);
+        languageTree.add(chooseLanguageHTML);
     }
 
     @Override
@@ -170,9 +180,23 @@ public class MenuBar extends JMenuBar implements ActionListener {
             case "Find": editFunctions.find(); break;
             case "Replace": editFunctions.replace(); break;
             case "Font": formatFunctions.font(); break;
-            case "Theme": viewFunctions.color(); break;
-            case AddLanguages.C: AddLanguages.disableAllExcept(command); AddLanguages.setUpC(); break;
-            case AddLanguages.JAVA: AddLanguages.disableAllExcept(command); AddLanguages.setUpJava(); break;
+            case "Themes": viewFunctions.color(); break;
+            case "None": AddLanguages.disableAll(); AddLanguages.updateText(); break;
+            case AddLanguages.C:
+                AddLanguages.disableAllExcept(command);
+                AddLanguages.setUpC();
+                AddLanguages.updateText();
+                break;
+            case AddLanguages.JAVA:
+                AddLanguages.disableAllExcept(command);
+                AddLanguages.setUpJava();
+                AddLanguages.updateText();
+                break;
+            case AddLanguages.HTML:
+                AddLanguages.disableAllExcept(command);
+                AddLanguages.setUpHTML();
+                AddLanguages.updateText();
+                break;
             // case AddLanguages.InnyJezyk: AddLanguages.disableAllExcept(command); AddLanguages.setUpInny(); break;
         }
     }

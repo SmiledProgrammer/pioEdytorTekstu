@@ -8,26 +8,26 @@ import java.awt.event.ActionListener;
 public class ColorWindow extends Window implements ActionListener {
 
     JLabel jButtonLabel;
-    JButton jBackgroundColorButton, jTextColorButton, jMenuBarColorButton, jMenuTreeColorButton, jMenuSelectColorButton, jMenuHoverButton;
+    JButton jBackgroundColorButton, jTextColorButton, jMenuBarColorButton, jMenuTreeColorButton, jMenuSelectColorButton, jMenuHoverButton, jMenuTreeHoverButton;
 
     public static Color defaultForegroundColor = Color.BLACK;
 
     public void CreateColor(){
         MakeColorWindow();
         setupDefaultComponentOptions();
-        AddButtons();
-        AddLabel();
+        AddColorButtons();
+        AddColorLabel();
         this.setLayout(null);
         this.setVisible(true);
     }
 
     public void MakeColorWindow(){
         setTitle("Color Options");
-        setSize(500, 500);
+        setSize(275, 275);
         setDefaultCloseOperation(HIDE_ON_CLOSE);
     }
 
-    public void AddButtons() {
+    public void AddColorButtons() {
         jBackgroundColorButton = new JButton("Background");
         jBackgroundColorButton.setBounds(25,50,200,20);
         jBackgroundColorButton.addActionListener(this);
@@ -40,7 +40,7 @@ public class ColorWindow extends Window implements ActionListener {
         jTextColorButton.setActionCommand("Text");
         this.add(jTextColorButton);
 
-        jMenuBarColorButton = new JButton("Menu Bar (WIP)");
+        jMenuBarColorButton = new JButton("Menu Bar");
         jMenuBarColorButton.setBounds(25,100,200,20);
         jMenuBarColorButton.addActionListener(this);
         jMenuBarColorButton.setActionCommand("Menu Bar");
@@ -52,21 +52,27 @@ public class ColorWindow extends Window implements ActionListener {
         jMenuTreeColorButton.setActionCommand("Menu Tree");
         this.add(jMenuTreeColorButton);
 
-        jMenuSelectColorButton = new JButton("Menu Selected (WIP)");
+        jMenuSelectColorButton = new JButton("Menu Selected");
         jMenuSelectColorButton.setBounds(25,150,200,20);
         jMenuSelectColorButton.addActionListener(this);
         jMenuSelectColorButton.setActionCommand("Menu Selected");
         this.add(jMenuSelectColorButton);
 
-        jMenuHoverButton = new JButton("Menu Hovered (WIP)");
+        jMenuHoverButton = new JButton("Menu Hovered");
         jMenuHoverButton.setBounds(25,175,200,20);
         jMenuHoverButton.addActionListener(this);
         jMenuHoverButton.setActionCommand("Menu Hovered");
         this.add(jMenuHoverButton);
+
+        jMenuTreeHoverButton = new JButton("Menu Tree Hovered");
+        jMenuTreeHoverButton.setBounds(25,200,200,20);
+        jMenuTreeHoverButton.addActionListener(this);
+        jMenuTreeHoverButton.setActionCommand("Menu Tree Hovered");
+        this.add(jMenuTreeHoverButton);
     }
 
-    public void AddLabel() {
-        jButtonLabel = new JLabel("Change the Color of:");
+    public void AddColorLabel() {
+        jButtonLabel = new JLabel("Change the color of:");
         jButtonLabel.setBounds(25,25,150,20);
         this.add(jButtonLabel);
     }
@@ -86,27 +92,52 @@ public class ColorWindow extends Window implements ActionListener {
     }
 
     public void changeMenuBar(){
-        Color initialMenuBar = NotepadWindow.textPane.getForeground();
-        Color menuBar = JColorChooser.showDialog(this, "Choose", initialMenuBar);
-        MenuOption.barColor = menuBar;
+        Color menuBar = JColorChooser.showDialog(this, "Choose", MenuBar.color);
+        MenuBar.color = menuBar;
+        MenuOptionTree.defaultColor = menuBar;
+        NotepadWindow.menuBar.setColor();
+        MenuBar.fileTree.ChangeTreeColor();
+        MenuBar.editTree.ChangeTreeColor();
+        MenuBar.formatTree.ChangeTreeColor();
+        MenuBar.viewTree.ChangeTreeColor();
+        MenuBar.languageTree.ChangeTreeColor();
     }
 
     public void changeMenuTree(){
-        Color initialMenuTree = NotepadWindow.textPane.getForeground();
-        Color text = JColorChooser.showDialog(this, "Choose", initialMenuTree);
-        NotepadWindow.textPane.setForeground(text);
+        Color initialMenuTree = MenuOption.barColor;
+        MenuOption.barColor = JColorChooser.showDialog(this, "Choose", initialMenuTree);
+        MenuBar.fileNew.SetOptionColor();
+        MenuBar.fileOpen.SetOptionColor();
+        MenuBar.fileSave.SetOptionColor();
+        MenuBar.fileSaveAs.SetOptionColor();
+        MenuBar.fileExit.SetOptionColor();
+        MenuBar.editUndo.SetOptionColor();
+        MenuBar.editRedo.SetOptionColor();
+        MenuBar.editFind.SetOptionColor();
+        MenuBar.editReplace.SetOptionColor();
+        MenuBar.chooseLanguageC.SetOptionColor();
+        MenuBar.chooseLanguageJava.SetOptionColor();
+        MenuBar.formatFont.SetOptionColor();
+        MenuBar.viewThemes.SetOptionColor();
+    }
+
+    public void changeMenuTreeHovered(){
+        Color initialMenuTreeHovered = MenuOption.selectionColor;
+        MenuOption.selectionColor = JColorChooser.showDialog(this,"Choose", initialMenuTreeHovered);
+        MenuBar.fileNew.SetSelectionColor();
+        SwingUtilities.updateComponentTreeUI(Notepad.notepadWindow);
     }
 
     public void changeMenuSelected(){
-        Color initialMenuSelected = NotepadWindow.textPane.getForeground();
-        Color text = JColorChooser.showDialog(this, "Choose", initialMenuSelected);
-        NotepadWindow.textPane.setForeground(text);
+        Color initialMenuSelected = MenuOptionTree.selectionColor;
+        MenuOptionTree.selectionColor = JColorChooser.showDialog(this, "Choose", initialMenuSelected);
+        MenuBar.fileTree.ChangeSelectionColor();
+        SwingUtilities.updateComponentTreeUI(Notepad.notepadWindow);
     }
 
     public void changeMenuHovered(){
-        Color initialMenuHovered = NotepadWindow.textPane.getForeground();
-        Color text = JColorChooser.showDialog(this, "Choose", initialMenuHovered);
-        NotepadWindow.textPane.setForeground(text);
+        Color initialMenuHovered = MenuOptionTree.hoverColor;
+        MenuOptionTree.hoverColor = JColorChooser.showDialog(this, "Choose", initialMenuHovered);
     }
 
     @Override
@@ -119,6 +150,7 @@ public class ColorWindow extends Window implements ActionListener {
             case "Menu Tree": changeMenuTree(); break;
             case "Menu Selected": changeMenuSelected(); break;
             case "Menu Hovered": changeMenuHovered(); break;
+            case "Menu Tree Hovered": changeMenuTreeHovered(); break;
         }
     }
 }

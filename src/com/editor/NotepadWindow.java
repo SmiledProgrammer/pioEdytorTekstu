@@ -12,7 +12,7 @@ import static javax.swing.JOptionPane.*;
 public class NotepadWindow extends Window implements Runnable {
 
     static JTextPane textPane;
-    MenuBar menuBar;
+    static MenuBar menuBar;
     JScrollPane scrollPane;
     static Font currentFont;
     public static boolean ignoreNextEdit;

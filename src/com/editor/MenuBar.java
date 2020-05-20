@@ -9,19 +9,19 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
     NotepadWindow notepadWindow;
     FontWindow fontWindow;
-    ColorWindow colorWindow;
+    ThemeWindow themeWindow;
     static Color color = new Color(153, 204, 255);
-    MenuOptionTree fileTree; //new, open, save, save as, exit
-    MenuOptionTree editTree; //undo, redo
-    MenuOptionTree formatTree; //font (window pops out)
-    MenuOptionTree viewTree; //color (window pops out)
-    MenuOptionTree languageTree;
-    MenuOption fileNew, fileOpen, fileSave, fileSaveAs, fileExit;
-    MenuOption editUndo, editRedo, editFind, editReplace;
-    MenuOption chooseLanguageC, chooseLanguageJava;
-    MenuOption formatFont;
+    static MenuOptionTree fileTree; //new, open, save, save as, exit
+    static MenuOptionTree editTree; //undo, redo
+    static MenuOptionTree formatTree; //font (window pops out)
+    static MenuOptionTree viewTree; //theme (window pops out)
+    static MenuOptionTree languageTree;
+    static MenuOption fileNew, fileOpen, fileSave, fileSaveAs, fileExit;
+    static MenuOption editUndo, editRedo, editFind, editReplace;
+    static MenuOption chooseLanguageC, chooseLanguageJava;
+    static MenuOption formatFont;
     JCheckBoxMenuItem wordWrap;
-    MenuOption viewColor;
+    static MenuOption viewThemes;
 
     FileFunctions fileFunctions;
     EditFunctions editFunctions;
@@ -31,14 +31,18 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
     public MenuBar(NotepadWindow notepadWindow) {
         this.notepadWindow = notepadWindow;
-        setBorder(BorderFactory.createLineBorder(color, 2));
-        setBackground(color);
+        setColor();
         setupFileTree();
         setupEditTree();
         setupFormatTree();
         setupViewTree();
         setupFunctions();
         setupLanguage();
+    }
+
+    public void setColor() {
+        setBackground(color);
+        setBorder(BorderFactory.createLineBorder(color, 2));
     }
 
     public void setupFileTree() {
@@ -122,17 +126,17 @@ public class MenuBar extends JMenuBar implements ActionListener {
         viewTree = new MenuOptionTree("View");
         add(viewTree);
 
-        viewColor = new MenuOption("Color");
-        viewColor.addActionListener(this);
-        viewColor.setActionCommand("Color");
-        viewTree.add(viewColor);
+        viewThemes = new MenuOption("Theme");
+        viewThemes.addActionListener(this);
+        viewThemes.setActionCommand("Theme");
+        viewTree.add(viewThemes);
     }
 
     public void setupFunctions() {
         fileFunctions = new FileFunctions(notepadWindow);
         editFunctions = new EditFunctions(notepadWindow);
         formatFunctions = new FormatFunctions(fontWindow);
-        viewFunctions = new ViewFunctions(colorWindow);
+        viewFunctions = new ViewFunctions(themeWindow);
         addLanguages = new AddLanguages();
     }
 
@@ -166,7 +170,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
             case "Find": editFunctions.find(); break;
             case "Replace": editFunctions.replace(); break;
             case "Font": formatFunctions.font(); break;
-            case "Color": viewFunctions.color(); break;
+            case "Theme": viewFunctions.color(); break;
             case AddLanguages.C: AddLanguages.disableAllExcept(command); AddLanguages.setUpC(); break;
             case AddLanguages.JAVA: AddLanguages.disableAllExcept(command); AddLanguages.setUpJava(); break;
             // case AddLanguages.InnyJezyk: AddLanguages.disableAllExcept(command); AddLanguages.setUpInny(); break;

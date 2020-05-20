@@ -61,10 +61,11 @@ public class AddLanguages {
         // dla kolejnych jezykow kolejne warunki
     }
 
-       public static void setUpC() {   
+    public static void setUpC() {
         if(!getIfSetup(C) || languageC != null)
             return;
         languageC = new Language();
+        languageC.addKeyword("#include", Color.GREEN);
         languageC.addKeyword("void", Color.RED);
         languageC.addKeyword("int", Color.RED);
         languageC.addKeyword("char", Color.RED);
@@ -101,10 +102,15 @@ public class AddLanguages {
         languageC.addKeyword("typedef", Color.blue);
         languageC.addKeyword("struct", Color.blue); 
 
-
         languageC.addSectionMarker('{', '}');
+        languageC.addSectionMarker('<', '>', true, Color.GREEN);
+        languageC.addSectionMarker('"', '"', false, Color.GREEN);
+        languageC.addSectionMarker('\'', '\'', false, Color.GREEN);
+
+        languageC.addAcceptedCharacter('#');
+        languageC.addAcceptedCharacter('.');
+
         languageC.setHighlightNumbers(true);
-        
     }
 
     public static void setUpJava() {
@@ -160,6 +166,8 @@ public class AddLanguages {
         languageJava.addKeyword("transient", Color.ORANGE);
 
         languageJava.addSectionMarker('{', '}');
+        languageJava.addSectionMarker('"', '"', false, Color.BLUE);
+        languageJava.addSectionMarker('\'', '\'', false, Color.BLUE);
         languageJava.setHighlightNumbers(true);
     }
 
@@ -268,5 +276,6 @@ public class AddLanguages {
 
         languageHTML.setHighlightNumbers(true);
         languageHTML.addSectionMarker('"', '"');
+        languageHTML.addSectionMarker('<', '>');
     }
 }

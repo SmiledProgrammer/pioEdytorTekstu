@@ -20,7 +20,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
     static MenuOption editUndo, editRedo, editFind, editReplace;
     static MenuOption chooseLanguageC, chooseLanguageJava, chooseLanguageHTML, chooseNone;
     static MenuOption formatFont;
-    JCheckBoxMenuItem wordWrap;
+    static JCheckBoxMenuItem wordWrap;
     static MenuOption viewThemes;
 
     FileFunctions fileFunctions;
@@ -120,6 +120,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
                 formatFunctions.wrap(((AbstractButton)e.getSource()).isSelected()));
         wordWrap.setActionCommand("Word wrap");
         formatTree.add(wordWrap);
+        MenuBar.wordWrap.setBackground(MenuOption.barColor);
     }
 
     public void setupViewTree() {
@@ -180,7 +181,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
             case "Find": editFunctions.find(); break;
             case "Replace": editFunctions.replace(); break;
             case "Font": formatFunctions.font(); break;
-            case "Themes": viewFunctions.color(); break;
+            case "Theme": viewFunctions.color(); break;
             case "None": AddLanguages.disableAll(); AddLanguages.updateText(); break;
             case AddLanguages.C:
                 AddLanguages.disableAllExcept(command);

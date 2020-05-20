@@ -46,7 +46,7 @@ public class ColorWindow extends Window implements ActionListener {
         jMenuBarColorButton.setActionCommand("Menu Bar");
         this.add(jMenuBarColorButton);
 
-        jMenuTreeColorButton = new JButton("Menu Tree (WIP)");
+        jMenuTreeColorButton = new JButton("Menu Tree");
         jMenuTreeColorButton.setBounds(25,125,200,20);
         jMenuTreeColorButton.addActionListener(this);
         jMenuTreeColorButton.setActionCommand("Menu Tree");
@@ -119,6 +119,9 @@ public class ColorWindow extends Window implements ActionListener {
         MenuBar.chooseLanguageJava.SetOptionColor();
         MenuBar.formatFont.SetOptionColor();
         MenuBar.viewThemes.SetOptionColor();
+        MenuBar.chooseLanguageHTML.SetOptionColor();
+        MenuBar.chooseNone.SetOptionColor();
+        MenuBar.wordWrap.setBackground(MenuOption.barColor);
     }
 
     public void changeMenuTreeHovered(){

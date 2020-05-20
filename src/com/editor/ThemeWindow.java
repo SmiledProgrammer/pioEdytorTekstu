@@ -151,6 +151,9 @@ public class ThemeWindow extends Window implements ActionListener {
         MenuBar.chooseLanguageJava.SetOptionColor();
         MenuBar.formatFont.SetOptionColor();
         MenuBar.viewThemes.SetOptionColor();
+        MenuBar.chooseLanguageHTML.SetOptionColor();
+        MenuBar.chooseNone.SetOptionColor();
+        MenuBar.wordWrap.setBackground(MenuOption.barColor);
     }
 
     public void changeTreeFont(Color fontColor){        //zmienia czcionke na menubarze i w menutree
@@ -172,6 +175,9 @@ public class ThemeWindow extends Window implements ActionListener {
         MenuBar.chooseLanguageJava.SetOptionFontColor(fontColor);
         MenuBar.formatFont.SetOptionFontColor(fontColor);
         MenuBar.viewThemes.SetOptionFontColor(fontColor);
+        MenuBar.chooseLanguageHTML.SetOptionFontColor(fontColor);
+        MenuBar.chooseNone.SetOptionFontColor(fontColor);
+        MenuBar.wordWrap.setForeground(fontColor);
     }
 
     @Override

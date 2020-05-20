@@ -50,10 +50,22 @@ public class Language {
         return ((int)c <= 47 || (int)c >= 58 && (int)c <= 64 || (int)c >= 91 && (int)c <= 96 || (int)c >= 123 && (int)c <= 127) ? true : false;
     }
 
-    public static void resetTextColor() {
+    private boolean isSkippableWhitespaceCharacter(char c) {
+        for (SectionMarker sm : sectionMarkers) {
+            if (c == sm.beginning || c == sm.ending)
+                return false;
+        }
+        for (char ac : acceptedCharacters) {
+            if (c == ac)
+                return false;
+        }
+        return ((int)c <= 47 || (int)c >= 58 && (int)c <= 64 || (int)c >= 91 && (int)c <= 96 || (int)c >= 123 && (int)c <= 127) ? true : false;
+    }
+
+    private static void resetTextColor() {
         StyledDocument doc = NotepadWindow.textPane.getStyledDocument();
         SimpleAttributeSet sas = new SimpleAttributeSet();
-        StyleConstants.setForeground(sas, ColorWindow.defaultForegroundColor);
+        StyleConstants.setForeground(sas, NotepadWindow.textPane.getForeground());
         NotepadWindow.ignoreNextEdit = true;
         doc.setCharacterAttributes(0, NotepadWindow.textPane.getText().length(), sas, false);
     }
@@ -68,25 +80,27 @@ public class Language {
         doc.setCharacterAttributes(pos, length, sas, false);
     }
 
+    private void skipWhitespaceCharacters() {
+        String text = NotepadWindow.textPane.getText();
+        char c;
+        do { //szukanie początku słowa
+            c = text.charAt(index++);
+            if (c == '\n')
+                newLines++;
+        } while (isSkippableWhitespaceCharacter(c) && index < text.length());
+        index--;
+    }
+
     private void getNextWord() { //zwraca indeks znalezionego słowa; słowo zapisuje w statycznej zmiennej globalnej "word"; startingIndex to indeks, od którego zaczynane jest sprawdzanie
         word = "";
         String text = NotepadWindow.textPane.getText();
         int i = index;
-        //#################################### TODO: Przenieś to do osobnej funkcji, żeby wywoływać przed checkSections()
-        char c;
-        do { //szukanie początku słowa
+        char c = text.charAt(i++);
+        while (!isWhitespaceCharacter(c) && i < text.length()) { //szukanie końca słowa
+            word += c;
             c = text.charAt(i++);
             if (c == '\n')
                 newLines++;
-        } while (isWhitespaceCharacter(c) && i < text.length());
-        //####################################
-        index = i - 1;
-        while (!isWhitespaceCharacter(c) && i < text.length()) { //szukanie końca słowa
-            word += c;
-            c = text.charAt(i);
-            if (c == '\n')
-                newLines++;
-            i++;
         }
         if (!isWhitespaceCharacter(c) && i == text.length()) //dodawanie ostatniego znaku
             word += c;
@@ -116,17 +130,18 @@ public class Language {
                             if (c == marker.ending || index >= text.length())
                                 break;
                         }
-                        changeTextColor(startingIndex, length, marker.color);
-                        System.out.println("\"" + text.charAt(startingIndex) + "\"");
+                        changeTextColor(startingIndex, length + 1, marker.color);
+                        index++;
+                        //System.out.println("index = " + index + " ; " + text.charAt(startingIndex));
                     } else {
                         changeTextColor(index, 1, marker.color);
-                        System.out.println("\"" + text.charAt(index) + "\"");
+                        //System.out.println(text.charAt(index));
                         index++;
                     }
                 } else if (text.charAt(index) == marker.ending) {
                     modifiedIndex = true;
                     changeTextColor(index, 1, marker.color);
-                    System.out.println("\"" + text.charAt(index) + "\"");
+                    //System.out.println(text.charAt(index));
                     index++;
                 }
             }
@@ -143,20 +158,30 @@ public class Language {
     }
 
     public void updateTextColors() {
+        String text = NotepadWindow.textPane.getText();
         resetTextColor();
         index = 0;
         word = "";
         newLines = 0;
-        while (index < NotepadWindow.textPane.getText().length()) {
+        while (index < text.length()) {
             modifiedIndex = false;
+            skipWhitespaceCharacters();
             checkSections();
             if (!modifiedIndex) {
                 getNextWord(); // Pobieranie następnego słowa w tekście
                 checkKeywords(); // Słowa kluczowe
                 if (isNumeric(word) && highlightNumbers) // Liczby
                     changeTextColor(index, word.length(), Color.MAGENTA);
-                index += word.length() + 1;
-                System.out.println(word);
+                index += word.length();
+                boolean skipNextCharacter = true;
+                if (index < text.length()) {
+                    for (SectionMarker sm : sectionMarkers) {
+                        if (text.charAt(index) == sm.beginning || text.charAt(index) == sm.ending)
+                            skipNextCharacter = false;
+                    }
+                }
+                if (skipNextCharacter) index++;
+                System.out.println("index = " + index + " ; " + word);
             }
         }
     }

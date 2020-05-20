@@ -78,6 +78,8 @@ public class ThemeWindow extends Window implements ActionListener {
         SwingUtilities.updateComponentTreeUI(Notepad.notepadWindow);
         NotepadWindow.textPane.setBackground(Color.WHITE);
         NotepadWindow.textPane.setForeground(Color.BLACK);
+
+        AddLanguages.updateText();
     }
 
     public void setThemeDark() {
@@ -96,6 +98,8 @@ public class ThemeWindow extends Window implements ActionListener {
         SwingUtilities.updateComponentTreeUI(Notepad.notepadWindow);
         NotepadWindow.textPane.setBackground(Color.BLACK);
         NotepadWindow.textPane.setForeground(Color.WHITE);
+
+        AddLanguages.updateText();
     }
 
     public void setThemeLazuli() {
@@ -122,6 +126,8 @@ public class ThemeWindow extends Window implements ActionListener {
 
         NotepadWindow.textPane.setBackground(new Color(48, 214, 200));          //zmiana pola tekstowego
         NotepadWindow.textPane.setForeground(new Color(0, 127, 255));
+
+        AddLanguages.updateText();
     }
 
     public void customSetup() {     //tworzy colorwindow

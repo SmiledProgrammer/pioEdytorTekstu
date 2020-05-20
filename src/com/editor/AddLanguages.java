@@ -63,7 +63,6 @@ public class AddLanguages {
             languageHTML.updateTextColors();
             return;
         }
-        Language.resetTextColor();
         // dla kolejnych jezykow kolejne warunki
     }
 
@@ -110,8 +109,8 @@ public class AddLanguages {
 
         languageC.addSectionMarker('{', '}');
         languageC.addSectionMarker('<', '>', true, Color.GREEN);
-        languageC.addSectionMarker('"', '"', false, Color.GREEN);
-        languageC.addSectionMarker('\'', '\'', false, Color.GREEN);
+        languageC.addSectionMarker('"', '"', true, Color.GREEN);
+        languageC.addSectionMarker('\'', '\'', true, Color.GREEN);
 
         languageC.addAcceptedCharacter('#');
         languageC.addAcceptedCharacter('.');
@@ -172,8 +171,8 @@ public class AddLanguages {
         languageJava.addKeyword("transient", Color.ORANGE);
 
         languageJava.addSectionMarker('{', '}');
-        languageJava.addSectionMarker('"', '"', false, Color.BLUE);
-        languageJava.addSectionMarker('\'', '\'', false, Color.BLUE);
+        languageJava.addSectionMarker('"', '"', true, Color.BLUE);
+        languageJava.addSectionMarker('\'', '\'', true, Color.BLUE);
         languageJava.setHighlightNumbers(true);
     }
 
@@ -282,6 +281,6 @@ public class AddLanguages {
 
         languageHTML.setHighlightNumbers(true);
         languageHTML.addSectionMarker('"', '"');
-        languageHTML.addSectionMarker('<', '>');
+        languageHTML.addSectionMarker('<', '>', false, Color.RED);
     }
 }

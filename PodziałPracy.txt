@@ -1,0 +1,23 @@
+Sprint 1:
+	Filip Olejniczak: Skróty klawiszowe
+	Kabała Bartosz: Okienko formatowania
+	Piotr Szumański: Zapisywanie i wczytywanie plików
+	Ilya Kharashun: Pomoc przy okienku formatowania
+	Michał Wójcik: Undo i Redo
+	Szymon Szafrański: Szkielet projektu, pasek menu
+
+Sprint 2:
+	Filip Olejniczak: Ostrzeganie przed zamykaniem niezapisanego pliku
+	Kabała Bartosz: Rozwinięcie opcji formatowania tekstu
+	Piotr Szumański: Event Dispatching Thread
+	Ilya Kharashun: Zmienianie rozmiaru czcionki i skróty klawiszowe do tego
+	Michał Wójcik: Zawijanie wierszy
+	Szymon Szafrański: Wyszukiwanie wzorca w tekście
+
+Sprint 3:
+	Filip Olejniczak: Opcja wyboru języka na pasku menu, podświetlanie liczb
+	Kabała Bartosz: Motywy kolorystyczne, zmiana kolorów paska menu
+	Piotr Szumański: Język HTML
+	Ilya Kharashun: Język C
+	Michał Wójcik: Język Java
+	Szymon Szafrański: Znajdywanie i podświetlanie słów kluczowych i sekcji

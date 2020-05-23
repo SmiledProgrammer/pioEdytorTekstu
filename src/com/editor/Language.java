@@ -181,7 +181,7 @@ public class Language {
                     }
                 }
                 if (skipNextCharacter) index++;
-                System.out.println("index = " + index + " ; " + word);
+                //System.out.println("index = " + index + " ; " + word);
             }
         }
     }

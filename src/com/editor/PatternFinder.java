@@ -6,35 +6,35 @@ public class PatternFinder {
     private String pattern;
     private int lastPosition;
     private int endOfLines = 0;
+    public int[] prefixSuffixTable;
 
-    private int[] createPrefixSuffixTable() {
-        int[] repetition = new int[pattern.length() + 1];
-        repetition[0] = 0;
+    public void createPrefixSuffixTable() {
+        prefixSuffixTable = new int[pattern.length() + 1];
+        prefixSuffixTable[0] = 0;
         int i = 0;
-        for (int j = 2; j < pattern.length(); j++) {
-            if (pattern.charAt(i) == pattern.charAt(j-1)) {
+        for (int j = 1; j < pattern.length(); j++) {
+            if (pattern.charAt(i) == pattern.charAt(j)) {
                 i++;
-                repetition[j] = i;
+                prefixSuffixTable[j + 1] = i;
             } else {
                 i = 0;
-                repetition[j] = 0;
+                prefixSuffixTable[j + 1] = 0;
             }
         }
-        return repetition;
     }
 
     public int findPattern(int startingIndex) {
-        int[] psTable = createPrefixSuffixTable();
-        int j = 0;
+        int j = -1;
         for (int i = startingIndex; i < text.length(); i++) {
             if (text.charAt(i) == '\n')
                 endOfLines++;
+            j++;
             if (text.charAt(i) == pattern.charAt(j)) {
-                j++;
-                if (j == pattern.length())
+                if (j + 1 == pattern.length())
                     return i - pattern.length() + 1;
             } else {
-                j = Math.max(psTable[j] - 1, 0);
+                j = prefixSuffixTable[j] - 1;
+                i--;
             }
         }
         return -1;
@@ -54,6 +54,7 @@ public class PatternFinder {
     public void setStrings(String text, String pattern) {
         this.text = text;
         this.pattern = pattern;
+        createPrefixSuffixTable();
         lastPosition = 0;
         endOfLines = 0;
     }
@@ -62,15 +63,4 @@ public class PatternFinder {
         this.text = text;
     }
 
-    //remove l8r
-    public static void main(String[] args) {
-        PatternFinder pf = new PatternFinder();
-        pf.setStrings("ala ma kota,\na kot ma ale,\nala go kocha,\na kot jej wcale", "kot");
-        int found = 0;
-        found = pf.findNext();
-        while (found >= 0) {
-            System.out.println(found);
-            found = pf.findNext();
-        }
-    }
 }
